@@ -1,0 +1,36 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "19.0"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile Python
+        run: python -m compileall .
+
+      - name: Validate manifests
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import ast
+
+          for manifest in Path(".").glob("*/__manifest__.py"):
+              ast.literal_eval(manifest.read_text())
+          print("manifests ok")
+          PY
