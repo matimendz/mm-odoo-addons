@@ -1,6 +1,6 @@
 {
     "name": "Project Task Live Refresh",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "category": "Project",
     "summary": "Realtime refresh for Project task kanban and form views.",
     "author": "Matias Mendez",
