@@ -47,36 +47,31 @@ function setupProjectTaskLive(controller, mode) {
     controller.notificationService = useService("notification");
     controller.busService.addChannel(CHANNEL);
 
-    controller.__mmProjectTaskLiveHandler = ({ detail: notifications }) => {
+    controller.__mmProjectTaskLiveHandler = (payload) => {
         if (controllerModel(controller) !== "project.task") {
             return;
         }
-        for (const notification of notifications) {
-            const type = notification.type || notification.payload?.type;
-            const payload = notification.payload || {};
-            if (type !== TYPE || payload.model !== "project.task") {
-                continue;
-            }
-            if (payload.write_uid === session.uid) {
-                continue;
-            }
-            if (mode === "form") {
-                const resId = currentRecordId(controller);
-                if (resId && !payload.task_ids?.includes(resId)) {
-                    continue;
-                }
-            }
-            scheduleReload(controller);
-            break;
+        if (payload.model !== "project.task") {
+            return;
         }
+        if (payload.write_uid === session.uid) {
+            return;
+        }
+        if (mode === "form") {
+            const resId = currentRecordId(controller);
+            if (resId && !payload.task_ids?.includes(resId)) {
+                return;
+            }
+        }
+        scheduleReload(controller);
     };
 
-    controller.busService.addEventListener("notification", controller.__mmProjectTaskLiveHandler);
+    controller.busService.subscribe(TYPE, controller.__mmProjectTaskLiveHandler);
     onWillDestroy(() => {
         if (controller.__mmProjectTaskLiveReload) {
             browser.clearTimeout(controller.__mmProjectTaskLiveReload);
         }
-        controller.busService.removeEventListener("notification", controller.__mmProjectTaskLiveHandler);
+        controller.busService.unsubscribe(TYPE, controller.__mmProjectTaskLiveHandler);
     });
 }
 
