@@ -23,15 +23,28 @@ function scheduleReload(controller) {
     if (controller.__mmProjectTaskLiveReload) {
         return;
     }
+    controller.notificationService.add("Task board updated in another session", {
+        title: "Project live refresh",
+        type: "info",
+    });
+    if (controller.effectService) {
+        controller.effectService.add({
+            type: "rainbow_man",
+            message: "Task moved",
+            fadeout: "fast",
+        });
+    }
     controller.__mmProjectTaskLiveReload = browser.setTimeout(() => {
         controller.__mmProjectTaskLiveReload = null;
         controller.actionService.doAction({ type: "ir.actions.client", tag: "reload" });
-    }, 250);
+    }, 900);
 }
 
 function setupProjectTaskLive(controller, mode) {
     controller.busService = useService("bus_service");
     controller.actionService = useService("action");
+    controller.effectService = useService("effect");
+    controller.notificationService = useService("notification");
     controller.busService.addChannel(CHANNEL);
 
     controller.__mmProjectTaskLiveHandler = ({ detail: notifications }) => {
