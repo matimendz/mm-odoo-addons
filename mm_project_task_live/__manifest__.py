@@ -1,6 +1,6 @@
 {
     "name": "Project Task Live Refresh",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "category": "Project",
     "summary": "Realtime refresh for Project task kanban and form views.",
     "author": "Matias Mendez",
@@ -13,6 +13,7 @@
     ],
     "assets": {
         "web.assets_backend": [
+            "mm_project_task_live/static/src/css/project_task_live.css",
             "mm_project_task_live/static/src/js/project_task_live.js",
         ],
     },
