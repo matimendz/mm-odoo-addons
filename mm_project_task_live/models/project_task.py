@@ -45,7 +45,11 @@ class ProjectTask(models.Model):
             return value
 
         return {
-            task.id: {field_name: field_value(task, field_name) for field_name in SNAPSHOT_FIELDS}
+            task.id: {
+                field_name: field_value(task, field_name)
+                for field_name in SNAPSHOT_FIELDS
+                if field_name in task._fields
+            }
             for task in self.exists()
         }
 
