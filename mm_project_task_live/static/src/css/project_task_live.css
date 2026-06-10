@@ -1,19 +1,66 @@
 .mm_project_task_live_highlight {
-    animation: mmProjectTaskLivePulse 2.4s ease-out;
-    box-shadow: 0 0 0 3px rgba(0, 150, 136, 0.38), 0 8px 24px rgba(0, 0, 0, 0.16) !important;
+    animation: mmProjectTaskLivePulse 1.6s ease-out;
+    box-shadow:
+        inset 4px 0 0 rgba(0, 150, 136, 0.9),
+        inset 0 0 0 1px rgba(0, 150, 136, 0.28) !important;
+}
+
+.mm_project_task_live_leaving {
+    animation: mmProjectTaskLiveLeaving 0.8s ease-in-out;
+    box-shadow: inset 4px 0 0 rgba(255, 152, 0, 0.9) !important;
+}
+
+.mm_project_task_live_entering {
+    animation: mmProjectTaskLiveEntering 1.35s ease-out;
+    box-shadow:
+        inset 4px 0 0 rgba(0, 150, 136, 0.9),
+        inset 0 0 0 1px rgba(0, 150, 136, 0.25) !important;
 }
 
 @keyframes mmProjectTaskLivePulse {
     0% {
-        outline: 3px solid rgba(0, 150, 136, 0);
-        transform: scale(1);
+        background-color: rgba(0, 150, 136, 0);
     }
     18% {
-        outline: 3px solid rgba(0, 150, 136, 0.8);
-        transform: scale(1.015);
+        background-color: rgba(0, 150, 136, 0.12);
     }
     100% {
-        outline: 3px solid rgba(0, 150, 136, 0);
-        transform: scale(1);
+        background-color: rgba(0, 150, 136, 0);
+    }
+}
+
+@keyframes mmProjectTaskLiveLeaving {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+        background-color: rgba(255, 152, 0, 0);
+    }
+    45% {
+        opacity: 0.55;
+        transform: translateX(10px);
+        background-color: rgba(255, 152, 0, 0.12);
+    }
+    100% {
+        opacity: 0.28;
+        transform: translateX(18px);
+        background-color: rgba(255, 152, 0, 0.04);
+    }
+}
+
+@keyframes mmProjectTaskLiveEntering {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+        background-color: rgba(0, 150, 136, 0.22);
+    }
+    35% {
+        opacity: 1;
+        transform: translateY(0);
+        background-color: rgba(0, 150, 136, 0.16);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        background-color: rgba(0, 150, 136, 0);
     }
 }
