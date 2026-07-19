@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+branch="$(git branch --show-current)"
+if [[ "$branch" =~ ^(main|master|19\.0)$ ]] && [[ ! "${MM_BREAK_GLASS_ODOO_TASK:-}" =~ ^[0-9]+$ ]]; then
+  echo "Direct commits on protected branches are blocked. Use an Odoo task workspace." >&2
+  exit 1
+fi
+
+if [[ "$branch" =~ ^agent/odoo-([0-9]+)- ]]; then
+  task_id="${BASH_REMATCH[1]}"
+  manifest="${TASK_WORKSPACE_MANIFEST:-$(dirname "$(git rev-parse --show-toplevel)")/.mm-workspace.json}"
+  if [[ ! -f "$manifest" ]]; then
+    echo "Task branch requires a .mm-workspace.json manifest." >&2
+    exit 1
+  fi
+  if [[ "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["task_id"])' "$manifest")" != "$task_id" ]]; then
+    echo "Task branch and workspace manifest do not match." >&2
+    exit 1
+  fi
+  control="$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print(d["repositories"][d["control_repository"]]["path"])' "$manifest")"
+  phase="$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); print("planning" if d["state"] == "planning" else "active")' "$manifest")"
+  workspace_cli="${TASK_WORKSPACE_CLI:-$control/ops/dev/task-workspace}"
+  if [[ ! -x "$workspace_cli" ]]; then
+    echo "Task workspace CLI is unavailable: $workspace_cli" >&2
+    exit 1
+  fi
+  TASK_WORKSPACE_MANIFEST="$manifest" "$workspace_cli" doctor "$task_id" --phase "$phase" >/dev/null
+fi

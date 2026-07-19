@@ -1,0 +1,51 @@
+name: Workspace Contract
+
+"on":
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  workspace-contract:
+    runs-on: ubuntu-latest
+    env:
+      PR_BODY: ${{ github.event.pull_request.body }}
+      PR_HEAD: ${{ github.head_ref }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+      - name: Validate task workspace metadata
+        shell: bash
+        run: |
+          [[ "$PR_HEAD" =~ ^agent/odoo-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$ ]]
+          grep -Eqi 'Odoo task:[[:space:]]*(https?://[^[:space:]]+|#[0-9]+|[0-9]+)' <<<"$PR_BODY"
+          grep -Eqi 'Workspace doctor:[[:space:]]*' <<<"$PR_BODY"
+          grep -Eqi 'Gate:[[:space:]]*(light|complete)' <<<"$PR_BODY"
+      - name: Validate versioned hooks
+        run: bash -n .githooks/pre-commit .githooks/pre-push
+
+  spec-contract:
+    runs-on: ubuntu-latest
+    env:
+      PR_BODY: ${{ github.event.pull_request.body }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: "3.12"
+      - name: Validate SDD contract
+        shell: bash
+        run: |
+          if [[ -f ops/dev/check-spec-contract.py ]]; then
+            python3 ops/dev/check-spec-contract.py --phase pre-merge
+          elif grep -Eqi 'Gate:[[:space:]]*light' <<<"$PR_BODY" \
+            && grep -Eqi 'No plan required' <<<"$PR_BODY"; then
+            exit 0
+          else
+            test -f specs/$(find specs -mindepth 1 -maxdepth 1 -type d ! -name _template -printf '%f\n' | sort | tail -1)/plan.md
+          fi

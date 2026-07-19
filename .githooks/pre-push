@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+zero=0000000000000000000000000000000000000000
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "$remote_ref" =~ ^refs/heads/(main|master|19\.0)$ ]] && [[ ! "${MM_BREAK_GLASS_ODOO_TASK:-}" =~ ^[0-9]+$ ]]; then
+    echo "Direct pushes to protected branches are blocked." >&2
+    exit 1
+  fi
+  if [[ "$remote_sha" != "$zero" && "$local_sha" != "$zero" ]] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
+    echo "Non-fast-forward push blocked for $remote_ref." >&2
+    exit 1
+  fi
+done
