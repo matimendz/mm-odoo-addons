@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== FORM ==================== -->
+    <record id="view_order_form_ponton_fudo" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.ponton_fudo</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Tipo de noche e ID Fudo en el grupo Sales de la pestaña "Other Info" -->
+            <xpath expr="//page[@name='other_information']//group[@name='sales_person']" position="after">
+                <group name="fudo_info" string="Fudo POS">
+                    <field name="fudo_sale_type" string="Tipo de noche"/>
+                    <field name="fudo_sale_id" string="ID Fudo"/>
+                    <field name="fudo_user_name" string="Usuario Fudo"/>
+                    <field name="fudo_user_id" string="ID usuario Fudo"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ==================== TREE (Pedidos confirmados) ==================== -->
+    <record id="view_order_tree_ponton_fudo" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.ponton_fudo</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="fudo_sale_type" optional="show" string="Tipo de noche"/>
+                <field name="fudo_user_name" optional="show" string="Usuario Fudo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ==================== TREE (Presupuestos/Pedidos) ==================== -->
+    <record id="view_quotation_tree_ponton_fudo" model="ir.ui.view">
+        <field name="name">sale.order.quotation.tree.inherit.ponton_fudo</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="fudo_sale_type" optional="show" string="Tipo de noche"/>
+                <field name="fudo_user_name" optional="show" string="Usuario Fudo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH ==================== -->
+    <record id="view_order_search_ponton_fudo" model="ir.ui.view">
+        <field name="name">sale.order.search.inherit.ponton_fudo</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+                <separator/>
+                <filter name="fudo_bar_abierto" string="Bar Abierto"
+                        domain="[('fudo_sale_type','=','bar_abierto')]"/>
+                <filter name="fudo_evento_propio" string="Evento Propio"
+                        domain="[('fudo_sale_type','=','evento_propio')]"/>
+                <filter name="fudo_coproduccion" string="Coproducción"
+                        domain="[('fudo_sale_type','=','coproduccion')]"/>
+                <filter name="fudo_evento_privado" string="Evento Privado"
+                        domain="[('fudo_sale_type','=','evento_privado')]"/>
+            </xpath>
+            <xpath expr="//group" position="inside">
+                <filter name="group_fudo_sale_type" string="Tipo de noche"
+                        context="{'group_by': 'fudo_sale_type'}"/>
+                <filter name="group_fudo_user_name" string="Usuario Fudo"
+                        context="{'group_by': 'fudo_user_name'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

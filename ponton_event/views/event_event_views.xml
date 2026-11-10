@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Enterprise removido: evitar que la acción principal intente abrir gantt/map. -->
+    <record id="event.action_event_view" model="ir.actions.act_window">
+        <field name="view_mode">kanban,calendar,tree,form,pivot,graph</field>
+    </record>
+
+    <!-- ==================== FORM ==================== -->
+    <record id="view_event_form_ponton" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.ponton</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Eliminar kanban_state (replicado de Studio) -->
+            <xpath expr="//field[@name='kanban_state']" position="replace"/>
+
+            <!-- Imagen como avatar antes del título -->
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="image" widget="image" class="oe_avatar" nolabel="1"
+                       options="{'preview_image': 'image', 'size': [90, 90]}"/>
+            </xpath>
+
+            <!-- Secuencia con widget priority (replicado de Studio) -->
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="secuencia" widget="priority"/>
+            </xpath>
+
+            <!-- Tipo de evento (many2many_tags) después de tag_ids -->
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="tipo_ids" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_quick_create': False}"
+                       string="Tipo de evento"/>
+            </xpath>
+
+            <!-- Supports (many2many partners, replicado de Studio) -->
+            <xpath expr="//field[@name='tipo_ids']" position="after">
+                <field name="supports_ids" widget="many2many_tags" string="Supports"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ==================== TREE ==================== -->
+    <record id="view_event_tree_ponton" model="ir.ui.view">
+        <field name="name">event.event.tree.inherit.ponton</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+
+            <!-- Ordenar por fecha descendente (replicado de Studio) -->
+            <xpath expr="//tree[1]" position="attributes">
+                <attribute name="default_order">date_begin desc</attribute>
+            </xpath>
+
+            <!-- Secuencia con priority antes del nombre (replicado de Studio) -->
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="secuencia" widget="priority" optional="show" string="Secuencia"/>
+            </xpath>
+
+            <!-- Tags after nombre (replicado de Studio) -->
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="tag_ids" optional="show" widget="many2many_tags"/>
+            </xpath>
+
+            <!-- Mover address_id después de date_end (replicado de Studio) -->
+            <xpath expr="//field[@name='date_end']" position="after">
+                <xpath expr="//field[@name='address_id']" position="move"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ==================== KANBAN ==================== -->
+    <record id="view_event_kanban_ponton" model="ir.ui.view">
+        <field name="name">event.event.kanban.inherit.ponton</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_kanban"/>
+        <field name="arch" type="xml">
+
+            <!-- Eliminar kanban_state (replicado de Studio) -->
+            <xpath expr="//field[@name='kanban_state']" position="replace"/>
+
+            <!-- Secuencia con priority junto al avatar de usuario (replicado de Studio) -->
+            <xpath expr="//field[@name='activity_ids'][@widget='kanban_activity']" position="after">
+                <field name="secuencia" widget="priority"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ==================== CALENDAR ==================== -->
+    <record id="view_event_calendar_ponton" model="ir.ui.view">
+        <field name="name">event.event.calendar.inherit.ponton</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_calendar"/>
+        <field name="arch" type="xml">
+
+            <!-- Color por stage, sin quick add (replicado de Studio) -->
+            <xpath expr="//calendar[1]" position="attributes">
+                <attribute name="color">stage_id</attribute>
+                <attribute name="quick_add">false</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH ==================== -->
+    <record id="view_event_search_ponton" model="ir.ui.view">
+        <field name="name">event.event.search.inherit.ponton</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+
+            <!-- Filtro "Sin cancelados" después de Archived (replicado de Studio) -->
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <separator/>
+                <filter name="sin_cancelados" string="Sin cancelados"
+                        domain="[('stage_id.name', '!=', 'Cancelado')]"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

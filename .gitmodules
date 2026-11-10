@@ -1,0 +1,40 @@
+[submodule "third/argentina-sale"]
+	path = third/argentina-sale
+	url = https://github.com/ingadhoc/argentina-sale.git
+	branch = 15.0
+[submodule "third/odoo-argentina"]
+	path = third/odoo-argentina
+	url = https://github.com/ingadhoc/odoo-argentina.git
+	branch = 15.0
+[submodule "third/account-payment"]
+	path = third/account-payment
+	url = https://github.com/ingadhoc/account-payment.git
+	branch = 15.0
+[submodule "third/reporting-engine"]
+	path = third/reporting-engine
+	url = https://github.com/OCA/reporting-engine.git
+	branch = 15.0
+[submodule "third/stock-logistics-workflow"]
+	path = third/stock-logistics-workflow
+	url = https://github.com/OCA/stock-logistics-workflow.git
+	branch = 15.0
+[submodule "third/web"]
+	path = third/web
+	url = https://github.com/OCA/web.git
+	branch = 15.0
+[submodule "third/stock"]
+	path = third/stock
+	url = https://github.com/ingadhoc/stock.git
+	branch = 15.0
+[submodule "third/account-financial-tools"]
+	path = third/account-financial-tools
+	url = https://github.com/ingadhoc/account-financial-tools.git
+	branch = 15.0
+[submodule "third/odoo-argentina-ee"]
+	path = third/odoo-argentina-ee
+	url = https://github.com/ingadhoc/odoo-argentina-ee.git
+	branch = 15.0
+[submodule "third/odoo-argentina-ce"]
+	path = third/odoo-argentina-ce
+	url = https://github.com/ingadhoc/odoo-argentina-ce.git
+	branch = 15.0
