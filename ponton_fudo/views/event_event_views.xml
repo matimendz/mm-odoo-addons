@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== FORM ==================== -->
+    <record id="view_event_form_ponton_fudo" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.ponton_fudo</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <!-- Tipo Fudo junto a los tags del evento -->
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="fudo_sale_type" string="Tipo Fudo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ==================== TREE ==================== -->
+    <record id="view_event_tree_ponton_fudo" model="ir.ui.view">
+        <field name="name">event.event.tree.inherit.ponton_fudo</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_begin']" position="after">
+                <field name="fudo_sale_type" optional="show" string="Tipo Fudo"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ==================== SEARCH ==================== -->
+    <record id="view_event_search_ponton_fudo" model="ir.ui.view">
+        <field name="name">event.event.search.inherit.ponton_fudo</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter name="group_fudo_sale_type" string="Tipo Fudo"
+                        context="{'group_by': 'fudo_sale_type'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

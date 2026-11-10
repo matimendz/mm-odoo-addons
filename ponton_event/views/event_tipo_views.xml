@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ponton_event_tipo_tree" model="ir.ui.view">
+        <field name="name">ponton.event.tipo.tree</field>
+        <field name="model">ponton.event.tipo</field>
+        <field name="arch" type="xml">
+            <tree string="Tipos de Evento">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ponton_event_tipo_form" model="ir.ui.view">
+        <field name="name">ponton.event.tipo.form</field>
+        <field name="model">ponton.event.tipo</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Evento">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ponton_event_tipo" model="ir.actions.act_window">
+        <field name="name">Tipos de Evento</field>
+        <field name="res_model">ponton.event.tipo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_ponton_event_tipo"
+        name="Tipos de Evento"
+        parent="event.menu_event_configuration"
+        action="action_ponton_event_tipo"
+        sequence="20"/>
+
+</odoo>
