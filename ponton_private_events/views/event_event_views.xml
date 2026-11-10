@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form_ponton_private_events" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.ponton.private.events</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="priority">110</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_ponton_generate_private_quote" type="object"
+                        string="Generar cotizacion" class="btn-primary"
+                        invisible="not ponton_private_commercial_model"/>
+                <button name="action_view_private_quote" type="object"
+                        string="Ver cotizacion"
+                        invisible="not ponton_private_quote_id"/>
+                <button name="action_ponton_generate_private_checklist" type="object"
+                        string="Generar checklist"
+                        invisible="not ponton_private_commercial_model or ponton_private_checklist_item_ids"/>
+                <button name="action_ponton_confirm_private_event" type="object"
+                        string="Validar privado"
+                        invisible="not ponton_private_commercial_model"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_private_quote" type="object"
+                        class="oe_stat_button" icon="fa-money"
+                        invisible="not ponton_private_quote_id">
+                    <field name="ponton_private_quote_id" string="Cotizacion" widget="statinfo"/>
+                </button>
+                <button name="action_view_private_incidents" type="object"
+                        class="oe_stat_button" icon="fa-warning"
+                        invisible="not ponton_private_commercial_model">
+                    <field name="ponton_private_incident_count" string="Incidentes" widget="statinfo"/>
+                </button>
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Evento privado" name="ponton_private_event" invisible="not ponton_private_commercial_model">
+                    <group>
+                        <group string="Comercial">
+                            <field name="ponton_private_event_type"/>
+                            <field name="ponton_private_commercial_model"/>
+                            <field name="ponton_private_package_id"
+                                   invisible="ponton_private_commercial_model != 'package_per_person'"/>
+                            <field name="ponton_private_guest_mode"/>
+                            <field name="ponton_private_guaranteed_guests"/>
+                            <field name="ponton_private_final_guests"/>
+                            <field name="ponton_private_season_band"/>
+                        </group>
+                        <group string="Operacion">
+                            <field name="ponton_private_spoc_id"/>
+                            <field name="ponton_private_bar_mode"/>
+                            <field name="ponton_private_catering_mode"/>
+                            <field name="ponton_private_deposit_paid"/>
+                            <field name="ponton_private_balance_paid"/>
+                            <field name="ponton_private_balance_due_date"/>
+                            <field name="ponton_private_nps_score"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Importes">
+                            <field name="ponton_private_space_fee"/>
+                            <field name="ponton_private_minimum_consumption"/>
+                            <field name="ponton_private_package_price_per_person"/>
+                            <field name="ponton_private_external_catering_fee"/>
+                            <field name="ponton_private_corkage_bottles"/>
+                            <field name="ponton_private_corkage_total"/>
+                            <field name="ponton_private_overtime_hours"/>
+                            <field name="ponton_private_overtime_amount"/>
+                        </group>
+                        <group string="Autorizaciones">
+                            <field name="ponton_private_allow_blackout_override" groups="event.group_event_manager"/>
+                            <field name="ponton_private_allow_balance_override" groups="event.group_event_manager"/>
+                            <field name="ponton_private_allow_guest_minimum_override" groups="event.group_event_manager"/>
+                            <field name="ponton_private_quote_id"/>
+                            <field name="ponton_private_sale_order_id"/>
+                        </group>
+                    </group>
+                    <field name="ponton_private_checklist_progress" widget="progressbar"/>
+                    <field name="ponton_private_checklist_item_ids" nolabel="1">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="stage"/>
+                            <field name="name"/>
+                            <field name="responsible_id"/>
+                            <field name="is_critical"/>
+                            <field name="done"/>
+                            <field name="done_at"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_event_tree_ponton_private_events" model="ir.ui.view">
+        <field name="name">event.event.list.inherit.ponton.private.events</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="ponton_private_event_type" optional="hide"/>
+                <field name="ponton_private_commercial_model" optional="hide"/>
+                <field name="ponton_private_deposit_paid" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

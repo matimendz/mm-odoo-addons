@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ponton_fudo.analytic_operation_coproduccion" model="account.analytic.account">
+        <field name="ponton_contract_required_for_events">1</field>
+    </record>
+</odoo>

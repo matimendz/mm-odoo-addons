@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ponton_event_contract_tree" model="ir.ui.view">
+        <field name="name">ponton.event.contract.list</field>
+        <field name="model">ponton.event.contract</field>
+        <field name="arch" type="xml">
+            <list string="Contratos de eventos" create="0">
+                <field name="name"/>
+                <field name="event_id"/>
+                <field name="state"/>
+                <field name="version"/>
+                <field name="sign_oca_request_id"/>
+                <field name="signed_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ponton_event_contract_form" model="ir.ui.view">
+        <field name="name">ponton.event.contract.form</field>
+        <field name="model">ponton.event.contract</field>
+        <field name="arch" type="xml">
+            <form string="Contrato de evento">
+                <header>
+                    <button name="action_generate_pdf" type="object" string="Generar PDF"
+                            class="btn-primary" invisible="state not in ('draft', 'generated')"/>
+                    <button name="action_send_for_signature" type="object" string="Enviar a firma"
+                            class="btn-primary" invisible="state not in ('generated', 'sent')"/>
+                    <button name="action_cancel" type="object" string="Cancelar"
+                            invisible="state in ('cancelled', 'signed', 'obsolete')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,generated,sent,signed,obsolete,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(ponton_event_contracts.action_report_ponton_event_contract)d"
+                                type="action" class="oe_stat_button" icon="fa-file-pdf-o">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">PDF</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="event_id"/>
+                            <field name="version"/>
+                            <field name="body_hash" readonly="1"/>
+                            <field name="pdf_hash" readonly="1"/>
+                            <field name="signed_hash" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="pdf_attachment_id"/>
+                            <field name="signed_attachment_id"/>
+                            <field name="sign_oca_request_id"/>
+                            <field name="signed_at"/>
+                            <field name="expires_at"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Texto congelado">
+                            <field name="body_html" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ponton_event_contract" model="ir.actions.act_window">
+        <field name="name">Contratos</field>
+        <field name="res_model">ponton.event.contract</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

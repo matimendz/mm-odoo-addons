@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ponton_reserva_tree" model="ir.ui.view">
+        <field name="name">ponton.reserva.tree</field>
+        <field name="model">ponton.reserva</field>
+        <field name="arch" type="xml">
+            <list string="Reservas" default_order="reservation_date desc, reservation_time asc, id desc"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-info="state == 'draft'"
+                  decoration-success="state == 'confirmed'">
+                <field name="reservation_date" string="Fecha"/>
+                <field name="reservation_time" string="Hora" widget="float_time"/>
+                <field name="guest_count" string="Personas"/>
+                <field name="partner_id" string="Contacto"/>
+                <field name="partner_phone" optional="show"/>
+                <field name="partner_email" optional="hide"/>
+                <field name="sector" widget="badge" optional="show"/>
+                <field name="source" widget="badge" optional="hide"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'confirmed'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ponton_reserva_form" model="ir.ui.view">
+        <field name="name">ponton.reserva.form</field>
+        <field name="model">ponton.reserva</field>
+        <field name="arch" type="xml">
+            <form string="Reserva">
+                <header>
+                    <button name="action_confirm" string="Confirmar" type="object" class="oe_highlight"
+                            invisible="state == 'confirmed'"/>
+                    <button name="action_cancel" string="Cancelar" type="object"
+                            invisible="state == 'cancelled'"/>
+                    <button name="action_reset_to_draft" string="Volver a borrador" type="object"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,cancelled"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Archivado" bg_color="bg-danger"
+                            invisible="active"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Reserva"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Contacto">
+                            <field name="partner_id"/>
+                            <field name="partner_phone"/>
+                            <field name="partner_email"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group string="Reserva">
+                            <field name="reservation_date" required="1"/>
+                            <field name="reservation_time" widget="float_time" required="1"/>
+                            <field name="guest_count" required="1"/>
+                            <field name="sector"/>
+                            <field name="source"/>
+                        </group>
+                    </group>
+                    <group string="Clasificación">
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    </group>
+                    <notebook>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Escriba sus notas aquí..." nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ponton_reserva_calendar" model="ir.ui.view">
+        <field name="name">ponton.reserva.calendar</field>
+        <field name="model">ponton.reserva</field>
+        <field name="arch" type="xml">
+            <calendar string="Reservas" date_start="reservation_date" color="sector" mode="week"
+                      event_limit="8">
+                <field name="partner_id"/>
+                <field name="partner_phone"/>
+                <field name="state"/>
+                <field name="reservation_time" widget="float_time"/>
+                <field name="sector"/>
+                <field name="guest_count"/>
+                <field name="user_id"/>
+                <field name="tag_ids"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_ponton_reserva_search" model="ir.ui.view">
+        <field name="name">ponton.reserva.search</field>
+        <field name="model">ponton.reserva</field>
+        <field name="arch" type="xml">
+            <search string="Reservas">
+                <field name="name"/>
+                <field name="partner_id" operator="child_of"/>
+                <field name="user_id"/>
+                <field name="tag_ids"/>
+                <field name="sector"/>
+                <field name="source"/>
+                <filter string="Mis reservas tomadas" name="my_reservas" domain="[('user_id', '=', uid)]"/>
+                <filter string="Sin cancelados" name="not_cancelled" domain="[('state', '!=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Hoy" name="today"
+                        domain="[('reservation_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Próximas" name="upcoming"
+                        domain="[('reservation_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Pasadas" name="past"
+                        domain="[('reservation_date', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmado" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Cancelado" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter string="Fecha" name="reservation_date" date="reservation_date"/>
+                <group>
+                    <filter string="Fecha" name="group_date" context="{'group_by': 'reservation_date'}"/>
+                    <filter string="Mes" name="group_month" context="{'group_by': 'reservation_date:month'}"/>
+                    <filter string="Sector" name="group_sector" context="{'group_by': 'sector'}"/>
+                    <filter string="Medio" name="group_source" context="{'group_by': 'source'}"/>
+                    <filter string="Quien toma reserva" name="group_user" context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ponton_reserva_tag_tree" model="ir.ui.view">
+        <field name="name">ponton.reserva.tag.tree</field>
+        <field name="model">ponton.reserva.tag</field>
+        <field name="arch" type="xml">
+            <list string="Etiquetas de Reserva" editable="bottom">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ponton_reserva_tag_form" model="ir.ui.view">
+        <field name="name">ponton.reserva.tag.form</field>
+        <field name="model">ponton.reserva.tag</field>
+        <field name="arch" type="xml">
+            <form string="Etiqueta de Reserva">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="color" widget="color_picker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ponton_reserva" model="ir.actions.act_window">
+        <field name="name">Reservas</field>
+        <field name="res_model">ponton.reserva</field>
+        <field name="view_mode">list,calendar,form</field>
+        <field name="context">{'search_default_not_cancelled': 1, 'group_by': ['reservation_date:month', 'reservation_date:day']}</field>
+    </record>
+
+    <record id="action_ponton_reserva_tag" model="ir.actions.act_window">
+        <field name="name">Etiquetas de Reserva</field>
+        <field name="res_model">ponton.reserva.tag</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_ponton_reservas_root" name="Reservas" sequence="45"
+              web_icon="ponton_reservas,static/description/icon.png"/>
+    <menuitem id="menu_ponton_reserva" name="Reservas" parent="menu_ponton_reservas_root"
+              action="action_ponton_reserva" sequence="10"/>
+    <menuitem id="menu_ponton_reservas_config" name="Configuración" parent="menu_ponton_reservas_root"
+              sequence="90"/>
+    <menuitem id="menu_ponton_reserva_tag" name="Etiquetas" parent="menu_ponton_reservas_config"
+              action="action_ponton_reserva_tag" sequence="10"/>
+
+</odoo>

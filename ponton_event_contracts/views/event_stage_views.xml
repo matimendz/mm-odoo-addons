@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="event_stage_view_form_ponton_contracts" model="ir.ui.view">
+        <field name="name">event.stage.form.inherit.ponton.contracts</field>
+        <field name="model">event.stage</field>
+        <field name="inherit_id" ref="event.event_stage_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pipe_end']" position="after">
+                <field name="is_contract_confirmed_stage"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="event_stage_view_tree_ponton_contracts" model="ir.ui.view">
+        <field name="name">event.stage.list.inherit.ponton.contracts</field>
+        <field name="model">event.stage</field>
+        <field name="inherit_id" ref="event.event_stage_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="is_contract_confirmed_stage"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

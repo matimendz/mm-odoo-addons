@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="menu_ponton_links" model="website.menu">
+        <field name="name">Entradas</field>
+        <field name="url">/links</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <template id="home_page" name="El Pontón Home">
+        <t t-call="website.layout">
+            <t t-set="additional_title">El Pontón</t>
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+            <div id="wrap" class="ponton-home-page">
+                <style>
+                    .ponton-home-page {
+                        align-items: center;
+                        background: #120d08;
+                        color: #f8efe1;
+                        display: flex;
+                        min-height: 100vh;
+                        padding: 42px 18px;
+                        text-align: center;
+                    }
+                    #footer,
+                    footer {
+                        display: none !important;
+                    }
+                    .ponton-home-inner {
+                        margin: 0 auto;
+                        max-width: 680px;
+                    }
+                    .ponton-home-logo {
+                        display: block;
+                        height: auto;
+                        margin: 0 auto 18px;
+                        max-height: 112px;
+                        max-width: min(320px, 78vw);
+                        object-fit: contain;
+                        width: auto;
+                    }
+                    .ponton-brand-wordmark {
+                        display: block;
+                        height: auto;
+                        margin: 0 auto 24px;
+                        max-height: 64px;
+                        max-width: min(320px, 76vw);
+                        object-fit: contain;
+                        width: auto;
+                    }
+                    .ponton-home-title {
+                        color: #fff6e8;
+                        font-size: clamp(34px, 7vw, 64px);
+                        font-weight: 900;
+                        line-height: 1;
+                        margin: 0;
+                    }
+                    .ponton-home-subtitle {
+                        color: #d8c6a8;
+                        font-size: 18px;
+                        line-height: 1.5;
+                        margin: 18px auto 0;
+                        max-width: 520px;
+                    }
+                    .ponton-home-link {
+                        background: #c8963c;
+                        border-radius: 999px;
+                        color: #120d08 !important;
+                        display: inline-block;
+                        font-size: 14px;
+                        font-weight: 900;
+                        margin-top: 30px;
+                        padding: 12px 18px;
+                        text-decoration: none !important;
+                    }
+                    .ponton-home-link:hover {
+                        background: #d7a94d;
+                        color: #120d08 !important;
+                    }
+                    .ponton-quick-links {
+                        display: grid;
+                        gap: 10px;
+                        margin: 28px auto 0;
+                        max-width: 440px;
+                        width: 100%;
+                    }
+                    .ponton-quick-link {
+                        align-items: center;
+                        background: #20160c;
+                        border: 1px solid rgba(200, 150, 60, 0.32);
+                        border-radius: 8px;
+                        color: #fff6e8 !important;
+                        display: flex;
+                        font-size: 15px;
+                        font-weight: 800;
+                        justify-content: space-between;
+                        padding: 14px 16px;
+                        text-decoration: none !important;
+                    }
+                    .ponton-quick-link:hover {
+                        background: #281b0e;
+                        border-color: #c8963c;
+                        color: #fff6e8 !important;
+                    }
+                    .ponton-quick-link-arrow {
+                        color: #c8963c;
+                        font-size: 18px;
+                        line-height: 1;
+                    }
+                </style>
+
+                <section class="ponton-home-inner">
+                    <img t-if="website.logo" class="ponton-home-logo"
+                         t-att-src="'/web/image/website/%s/logo' % website.id"
+                         t-att-alt="website.name"/>
+                    <img t-if="ponton_wordmark_url" class="ponton-brand-wordmark"
+                         t-att-src="ponton_wordmark_url" alt="El Pontón"/>
+                    <h1 class="ponton-home-title">Página en refacción</h1>
+                    <p class="ponton-home-subtitle">Estamos preparando una nueva experiencia. Mientras tanto, podés comprar tus entradas para los próximos eventos.</p>
+                    <a class="ponton-home-link" href="/links">Comprar entradas</a>
+                    <div class="ponton-quick-links">
+                        <a class="ponton-quick-link" href="https://maps.app.goo.gl/bGARgWjeagNf9Kxn8" target="_blank" rel="noopener">
+                            <span>Cómo llegar</span>
+                            <span class="ponton-quick-link-arrow">›</span>
+                        </a>
+                        <a class="ponton-quick-link" href="https://menu.fu.do/elpont%C3%B3n/qr-menu" target="_blank" rel="noopener">
+                            <span>Mirá nuestro menú</span>
+                            <span class="ponton-quick-link-arrow">›</span>
+                        </a>
+
+                        <a class="ponton-quick-link" href="https://api.whatsapp.com/send/?phone=5493765238391&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">
+                            <span>WhatsApp</span>
+                            <span class="ponton-quick-link-arrow">›</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="links_page" name="El Pontón Links">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Links</t>
+            <t t-set="no_header" t-value="True"/>
+            <div id="wrap" class="ponton-links-page">
+                <style>
+                    .ponton-links-page {
+                        background: #120d08;
+                        color: #f8efe1;
+                        min-height: 100vh;
+                    }
+                    #footer,
+                    footer {
+                        display: none !important;
+                    }
+                    .ponton-links-hero {
+                        padding: 18px 18px 26px;
+                        text-align: center;
+                    }
+                    .ponton-links-brand {
+                        padding: 44px 18px 20px;
+                        text-align: center;
+                    }
+                    .ponton-links-logo {
+                        display: block;
+                        height: auto;
+                        margin: 0 auto 18px;
+                        max-height: 96px;
+                        max-width: min(280px, 78vw);
+                        object-fit: contain;
+                        width: auto;
+                    }
+                    .ponton-brand-wordmark {
+                        display: block;
+                        height: auto;
+                        margin: 0 auto;
+                        max-height: 58px;
+                        max-width: min(320px, 76vw);
+                        object-fit: contain;
+                        width: auto;
+                    }
+                    .ponton-links-title {
+                        color: #fff6e8;
+                        font-size: clamp(34px, 7vw, 64px);
+                        font-weight: 900;
+                        line-height: 1;
+                        margin: 0;
+                    }
+                    .ponton-links-subtitle {
+                        color: #d8c6a8;
+                        font-size: 16px;
+                        margin: 14px auto 0;
+                        max-width: 520px;
+                    }
+                    .ponton-links-list {
+                        margin: 0 auto;
+                        max-width: 680px;
+                        padding: 10px 18px 64px;
+                    }
+                    .ponton-links-useful {
+                        margin: 0 auto 8px;
+                        max-width: 680px;
+                        padding: 0 18px 28px;
+                    }
+                    .ponton-links-useful-title {
+                        color: #c8963c;
+                        font-size: 12px;
+                        font-weight: 800;
+                        letter-spacing: 0;
+                        margin: 0 auto 10px;
+                        max-width: 440px;
+                        text-transform: uppercase;
+                    }
+                    .ponton-quick-links {
+                        display: grid;
+                        gap: 10px;
+                        margin: 0 auto;
+                        max-width: 440px;
+                        width: 100%;
+                    }
+                    .ponton-quick-link {
+                        align-items: center;
+                        background: #20160c;
+                        border: 1px solid rgba(200, 150, 60, 0.32);
+                        border-radius: 8px;
+                        color: #fff6e8 !important;
+                        display: flex;
+                        font-size: 15px;
+                        font-weight: 800;
+                        justify-content: space-between;
+                        padding: 14px 16px;
+                        text-decoration: none !important;
+                    }
+                    .ponton-quick-link:hover {
+                        background: #281b0e;
+                        border-color: #c8963c;
+                        color: #fff6e8 !important;
+                    }
+                    .ponton-quick-link-arrow {
+                        color: #c8963c;
+                        font-size: 18px;
+                        line-height: 1;
+                    }
+                    .ponton-link-card {
+                        align-items: center;
+                        background: #20160c;
+                        border: 1px solid rgba(200, 150, 60, 0.32);
+                        border-radius: 8px;
+                        color: inherit !important;
+                        display: grid;
+                        gap: 16px;
+                        grid-template-columns: 86px 1fr auto;
+                        margin: 12px 0;
+                        min-height: 112px;
+                        overflow: hidden;
+                        padding: 12px 14px 12px 12px;
+                        text-decoration: none !important;
+                        transition: border-color 160ms ease, transform 160ms ease, background 160ms ease;
+                    }
+                    .ponton-link-card:hover {
+                        background: #281b0e;
+                        border-color: #c8963c;
+                        color: inherit !important;
+                        transform: translateY(-1px);
+                    }
+                    .ponton-link-image,
+                    .ponton-link-image-fallback {
+                        aspect-ratio: 1;
+                        border-radius: 6px;
+                        height: 86px;
+                        object-fit: cover;
+                        width: 86px;
+                    }
+                    .ponton-link-image-fallback {
+                        align-items: center;
+                        background: #120d08;
+                        border: 1px solid rgba(200, 150, 60, 0.45);
+                        box-shadow: inset 0 0 24px rgba(200, 150, 60, 0.12);
+                        display: flex;
+                        justify-content: center;
+                        padding: 14px;
+                    }
+                    .ponton-link-image-fallback img {
+                        display: block;
+                        height: auto;
+                        max-height: 58px;
+                        max-width: 100%;
+                        object-fit: contain;
+                        width: auto;
+                    }
+                    .ponton-link-date {
+                        color: #c8963c;
+                        font-size: 13px;
+                        font-weight: 800;
+                        margin-bottom: 4px;
+                    }
+                    .ponton-link-name {
+                        color: #fff6e8;
+                        font-size: 20px;
+                        font-weight: 900;
+                        line-height: 1.15;
+                        margin: 0;
+                    }
+                    .ponton-link-meta {
+                        color: #d8c6a8;
+                        font-size: 13px;
+                        margin-top: 6px;
+                    }
+                    .ponton-link-action {
+                        background: #c8963c;
+                        border-radius: 999px;
+                        color: #120d08;
+                        font-size: 13px;
+                        font-weight: 900;
+                        padding: 10px 14px;
+                        white-space: nowrap;
+                    }
+                    .ponton-links-empty {
+                        background: #20160c;
+                        border: 1px solid rgba(200, 150, 60, 0.32);
+                        border-radius: 8px;
+                        color: #d8c6a8;
+                        padding: 24px;
+                        text-align: center;
+                    }
+                    @media (max-width: 560px) {
+                        .ponton-links-brand {
+                            padding-top: 32px;
+                        }
+                        .ponton-links-hero {
+                            padding-top: 10px;
+                        }
+                        .ponton-links-logo {
+                            max-height: 82px;
+                            max-width: 72vw;
+                        }
+                        .ponton-link-card {
+                            grid-template-columns: 68px 1fr;
+                            padding: 10px;
+                        }
+                        .ponton-link-image,
+                        .ponton-link-image-fallback {
+                            height: 68px;
+                            width: 68px;
+                        }
+                        .ponton-link-action {
+                            grid-column: 1 / -1;
+                            text-align: center;
+                            width: 100%;
+                        }
+                    }
+                </style>
+
+                <section class="ponton-links-brand">
+                    <img t-if="website.logo" class="ponton-links-logo"
+                         t-att-src="'/web/image/website/%s/logo' % website.id"
+                         t-att-alt="website.name"/>
+                    <img t-if="ponton_wordmark_url" class="ponton-brand-wordmark"
+                         t-att-src="ponton_wordmark_url" alt="El Pontón"/>
+                </section>
+
+                <section class="ponton-links-useful">
+                    <p class="ponton-links-useful-title">Links útiles</p>
+                    <div class="ponton-quick-links">
+                        <a class="ponton-quick-link" href="https://maps.app.goo.gl/bGARgWjeagNf9Kxn8" target="_blank" rel="noopener">
+                            <span>Cómo llegar</span>
+                            <span class="ponton-quick-link-arrow">›</span>
+                        </a>
+                        <a class="ponton-quick-link" href="https://menu.fu.do/elpont%C3%B3n/qr-menu" target="_blank" rel="noopener">
+                            <span>Mirá nuestro menú</span>
+                            <span class="ponton-quick-link-arrow">›</span>
+                        </a>
+
+                        <a class="ponton-quick-link" href="https://api.whatsapp.com/send/?phone=5493765238391&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener">
+                            <span>WhatsApp</span>
+                            <span class="ponton-quick-link-arrow">›</span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="ponton-links-hero">
+                    <h1 class="ponton-links-title">Entradas</h1>
+                    <p class="ponton-links-subtitle">Comprá tus entradas para los próximos eventos.</p>
+                </section>
+
+                <section class="ponton-links-list">
+                    <t t-if="ticket_events">
+                        <a t-foreach="ticket_events" t-as="event" t-att-href="event['ticket_url']"
+                           class="ponton-link-card" target="_blank" rel="noopener">
+                            <img t-if="event['image_url']" class="ponton-link-image"
+                                 t-att-src="event['image_url']" t-att-alt="event['name']"/>
+                            <div t-if="not event['image_url']" class="ponton-link-image-fallback">
+                                <img t-if="website.logo"
+                                     t-att-src="'/web/image/website/%s/logo' % website.id"
+                                     t-att-alt="website.name"/>
+                            </div>
+                            <div>
+                                <div t-if="event['date']" class="ponton-link-date" t-esc="event['date']"/>
+                                <h2 class="ponton-link-name" t-esc="event['name']"/>
+                                <div t-if="event['types']" class="ponton-link-meta" t-esc="event['types']"/>
+                            </div>
+                            <span class="ponton-link-action">Comprar</span>
+                        </a>
+                    </t>
+                    <div t-if="not ticket_events" class="ponton-links-empty">
+                        No hay entradas disponibles en este momento.
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+</odoo>

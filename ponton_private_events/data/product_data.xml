@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_private_event_package" model="product.product">
+        <field name="name">Evento privado - Paquete por persona</field>
+        <field name="type">service</field>
+        <field name="list_price">0.0</field>
+    </record>
+    <record id="product_private_event_space_fee" model="product.product">
+        <field name="name">Evento privado - Alquiler exclusivo</field>
+        <field name="type">service</field>
+        <field name="list_price">0.0</field>
+    </record>
+    <record id="product_private_event_minimum_consumption" model="product.product">
+        <field name="name">Evento privado - Consumo minimo</field>
+        <field name="type">service</field>
+        <field name="list_price">0.0</field>
+    </record>
+    <record id="product_private_event_external_catering" model="product.product">
+        <field name="name">Evento privado - Recargo catering externo</field>
+        <field name="type">service</field>
+        <field name="list_price">0.0</field>
+    </record>
+    <record id="product_private_event_corkage" model="product.product">
+        <field name="name">Evento privado - Descorche</field>
+        <field name="type">service</field>
+        <field name="list_price">15000.0</field>
+    </record>
+    <record id="product_private_event_overtime" model="product.product">
+        <field name="name">Evento privado - Hora adicional</field>
+        <field name="type">service</field>
+        <field name="list_price">0.0</field>
+    </record>
+</odoo>

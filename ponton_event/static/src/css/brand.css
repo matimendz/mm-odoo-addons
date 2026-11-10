@@ -1,0 +1,75 @@
+/* El Pontón — Brand header override para Odoo 15
+ *
+ * Paleta:
+ *   Navbar bg:    #1C1206  dark espresso cálido (reemplaza el navy frío de Odoo)
+ *   Primary:      #C8963C  amber dorado — botones, links, accents
+ *   Hover navbar: #2E1E0A  un tono más claro al pasar el mouse
+ *
+ * Combina con el teal de Odoo manteniéndolo donde no se sobreescribe.
+ */
+
+/* ── Navbar principal ──────────────────────────────────────────── */
+.o_main_navbar {
+    background-color: #1C1206 !important;
+    border-bottom: 2px solid #C8963C !important;
+}
+
+/* Texto e íconos en el navbar */
+.o_main_navbar .o_menu_brand,
+.o_main_navbar > ul > li > a,
+.o_main_navbar .o_menu_sections > li > a,
+.o_main_navbar .o_menu_sections > li > .o_dropdown_menu > li > a {
+    color: #F5E6C8 !important;   /* crema cálido — legible sobre espresso */
+}
+
+.o_main_navbar .o_menu_brand {
+    color: #C8963C !important;   /* el nombre de la app en amber */
+    font-weight: 700;
+}
+
+/* Hover en items del menú */
+.o_main_navbar > ul > li > a:hover,
+.o_main_navbar .o_menu_sections > li > a:hover {
+    background-color: #2E1E0A !important;
+    color: #C8963C !important;
+}
+
+/* Íconos de la derecha (notificaciones, debug, usuario) */
+.o_main_navbar .o_menu_systray .o_nav_entry,
+.o_main_navbar .o_menu_systray > li > a,
+.o_main_navbar .o_menu_systray > li > .dropdown-toggle {
+    color: #F5E6C8 !important;
+}
+
+.o_main_navbar .o_menu_systray > li > a:hover,
+.o_main_navbar .o_menu_systray > li > .dropdown-toggle:hover {
+    background-color: #2E1E0A !important;
+}
+
+/* ── Botones primarios (toda la app) ───────────────────────────── */
+.btn-primary {
+    background-color: #C8963C !important;
+    border-color: #B07D2A !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #B07D2A !important;
+    border-color: #9A6A1A !important;
+}
+
+/* ── Links y accents ────────────────────────────────────────────── */
+.o_form_view .o_statusbar_status .btn.btn-primary,
+.o_form_view .oe_button_box .oe_stat_button .o_stat_value {
+    color: #C8963C !important;
+}
+
+a, .o_field_widget a {
+    color: #B07D2A !important;
+}
+
+a:hover {
+    color: #9A6A1A !important;
+}

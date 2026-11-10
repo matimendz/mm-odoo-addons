@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_ponton_event_contract"
+              name="Contratos"
+              parent="event.event_main_menu"
+              action="action_ponton_event_contract"
+              sequence="55"/>
+
+    <menuitem id="menu_ponton_event_contract_clause"
+              name="Clausulas de contrato"
+              parent="event.menu_event_configuration"
+              action="action_ponton_event_contract_clause"
+              sequence="60"/>
+
+    <menuitem id="menu_ponton_event_organizer_migration_wizard"
+              name="Migrar organizadores legacy"
+              parent="event.menu_event_configuration"
+              action="action_ponton_event_organizer_migration_wizard"
+              groups="event.group_event_manager"
+              sequence="65"/>
+</odoo>

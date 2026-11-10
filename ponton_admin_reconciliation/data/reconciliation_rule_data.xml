@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="rule_macro_transfer_in" model="ponton.reconciliation.rule">
+        <field name="name">Macro - Transferencia entrante</field>
+        <field name="priority">10</field>
+        <field name="reference_pattern">TRANSF:</field>
+        <field name="sign">inbound</field>
+        <field name="issue_type">macro_transfer_origin</field>
+        <field name="confidence">low</field>
+        <field name="probable_origin">unidentified_liquidation</field>
+        <field name="recommended_action">Identificar origen: MercadoPago, Fiserv/Clover, Fudo Pagos, cliente o liquidación por identificar.</field>
+        <field name="default_approved_action">classify_to_identification</field>
+        <field name="requires_approval">1</field>
+    </record>
+
+    <record id="rule_macro_cheque" model="ponton.reconciliation.rule">
+        <field name="name">Macro - Cheque</field>
+        <field name="priority">20</field>
+        <field name="reference_pattern">CHEQUE</field>
+        <field name="sign">outbound</field>
+        <field name="issue_type">supplier_payment_missing</field>
+        <field name="confidence">medium</field>
+        <field name="probable_origin">supplier</field>
+        <field name="recommended_action">Vincular el cheque con proveedor/factura o crear el pago faltante.</field>
+        <field name="default_approved_action">manual_reconcile</field>
+        <field name="requires_approval">1</field>
+    </record>
+
+    <record id="rule_macro_afip" model="ponton.reconciliation.rule">
+        <field name="name">Macro - AFIP</field>
+        <field name="priority">30</field>
+        <field name="reference_pattern">AFIP</field>
+        <field name="sign">outbound</field>
+        <field name="issue_type">tax_payment_missing</field>
+        <field name="confidence">medium</field>
+        <field name="probable_origin">tax</field>
+        <field name="recommended_action">Registrar obligación fiscal y conciliar el débito contra el asiento fiscal.</field>
+        <field name="default_approved_action">create_tax_entry</field>
+        <field name="requires_approval">1</field>
+    </record>
+
+    <record id="rule_macro_credit_card" model="ponton.reconciliation.rule">
+        <field name="name">Macro - Tarjeta de crédito</field>
+        <field name="priority">40</field>
+        <field name="reference_pattern">TARJETA</field>
+        <field name="sign">outbound</field>
+        <field name="issue_type">credit_card_statement_missing</field>
+        <field name="confidence">medium</field>
+        <field name="probable_origin">credit_card</field>
+        <field name="recommended_action">Registrar resumen de tarjeta, imputar consumos y conciliar el débito Macro.</field>
+        <field name="default_approved_action">create_credit_card_statement</field>
+        <field name="requires_approval">1</field>
+    </record>
+
+    <record id="rule_mp_payment" model="ponton.reconciliation.rule">
+        <field name="name">MercadoPago - Pago</field>
+        <field name="priority">10</field>
+        <field name="reference_pattern">MP Pago</field>
+        <field name="sign">outbound</field>
+        <field name="issue_type">mp_payment_without_expense</field>
+        <field name="confidence">medium</field>
+        <field name="probable_origin">supplier</field>
+        <field name="recommended_action">Buscar gasto Fudo/Odoo con método MercadoPago o cargar proveedor/comprobante faltante.</field>
+        <field name="default_approved_action">manual_reconcile</field>
+        <field name="requires_approval">1</field>
+    </record>
+
+    <record id="rule_mp_withdrawal" model="ponton.reconciliation.rule">
+        <field name="name">MercadoPago - Retiro</field>
+        <field name="priority">20</field>
+        <field name="reference_pattern">Retiro de dinero</field>
+        <field name="sign">outbound</field>
+        <field name="issue_type">mp_withdrawal_to_macro</field>
+        <field name="confidence">medium</field>
+        <field name="probable_origin">mercadopago</field>
+        <field name="recommended_action">Agrupar por operación MercadoPago, calcular neto y buscar transferencia Macro dentro de 0 a 5 días hábiles.</field>
+        <field name="default_approved_action">manual_reconcile</field>
+        <field name="requires_approval">1</field>
+    </record>
+
+</odoo>
+

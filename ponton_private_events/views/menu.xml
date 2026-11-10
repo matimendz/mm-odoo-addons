@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_ponton_private_crm_lead" model="ir.actions.act_window">
+        <field name="name">Leads eventos privados</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">list,kanban,form,calendar,pivot,graph</field>
+        <field name="domain">[('ponton_private_event_type', '!=', False)]</field>
+        <field name="context">{'default_type': 'opportunity'}</field>
+    </record>
+    <record id="action_ponton_private_event" model="ir.actions.act_window">
+        <field name="name">Eventos privados</field>
+        <field name="res_model">event.event</field>
+        <field name="view_mode">kanban,calendar,list,form,pivot,graph</field>
+        <field name="domain">[('ponton_private_commercial_model', '!=', False)]</field>
+        <field name="context" eval="{'default_event_type_id': ref('ponton_private_events.event_type_private_event'), 'default_ponton_private_commercial_model': 'space_fee_plus_minimum_consumption', 'default_ponton_contract_kind': 'private_event', 'default_ponton_contract_required': True}"/>
+    </record>
+    <record id="action_ponton_private_quote" model="ir.actions.act_window">
+        <field name="name">Cotizaciones privadas</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form,calendar,pivot,graph</field>
+        <field name="domain">[('ponton_private_event_id', '!=', False)]</field>
+    </record>
+
+    <menuitem id="menu_ponton_private_events_root" name="Eventos Privados" sequence="46"/>
+    <menuitem id="menu_ponton_private_event_leads" name="Leads"
+              parent="menu_ponton_private_events_root"
+              action="action_ponton_private_crm_lead" sequence="10"/>
+    <menuitem id="menu_ponton_private_event_events" name="Eventos"
+              parent="menu_ponton_private_events_root"
+              action="action_ponton_private_event" sequence="20"/>
+    <menuitem id="menu_ponton_private_event_quotes" name="Cotizaciones"
+              parent="menu_ponton_private_events_root"
+              action="action_ponton_private_quote" sequence="30"/>
+    <menuitem id="menu_ponton_private_events_config" name="Configuracion"
+              parent="menu_ponton_private_events_root" sequence="90"/>
+    <menuitem id="menu_ponton_private_event_packages" name="Paquetes"
+              parent="menu_ponton_private_events_config"
+              action="action_ponton_private_event_package" sequence="10"/>
+    <menuitem id="menu_ponton_private_event_rates" name="Tarifas"
+              parent="menu_ponton_private_events_config"
+              action="action_ponton_private_event_rate" sequence="20"/>
+    <menuitem id="menu_ponton_private_event_blackouts" name="Blackouts"
+              parent="menu_ponton_private_events_config"
+              action="action_ponton_private_event_blackout" sequence="30"/>
+    <menuitem id="menu_ponton_private_event_services" name="Servicios tercerizados"
+              parent="menu_ponton_private_events_config"
+              action="action_ponton_private_event_partner_service" sequence="40"/>
+    <menuitem id="menu_ponton_private_event_incidents" name="Incidentes"
+              parent="menu_ponton_private_events_root"
+              action="action_ponton_private_event_incident" sequence="50"/>
+</odoo>

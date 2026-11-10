@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="event_stage_adjustment" model="event.stage">
+        <field name="name">Ajuste</field>
+        <field name="sequence">2</field>
+        <field name="fold" eval="False"/>
+        <field name="pipe_end" eval="False"/>
+    </record>
+</odoo>

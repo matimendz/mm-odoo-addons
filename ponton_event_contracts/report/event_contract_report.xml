@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_ponton_event_contract" model="ir.actions.report">
+        <field name="name">Contrato de coproduccion</field>
+        <field name="model">ponton.event.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ponton_event_contracts.report_ponton_event_contract</field>
+        <field name="report_file">ponton_event_contracts.report_ponton_event_contract</field>
+        <field name="binding_model_id" ref="model_ponton_event_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_ponton_event_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="contract">
+                <t t-call="web.external_layout">
+                    <style>
+                        .ponton-contract h1 { font-size: 26px; margin-bottom: 18px; }
+                        .ponton-contract h2 { font-size: 18px; margin-top: 22px; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+                        .ponton-contract h3 { font-size: 15px; margin-top: 14px; }
+                        .ponton-contract table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+                        .ponton-contract th { width: 28%; text-align: left; background: #f4f4f4; }
+                        .ponton-contract th,
+                        .ponton-contract td { border: 1px solid #ddd; padding: 7px; vertical-align: top; }
+                        .ponton-contract ul { margin-top: 4px; }
+                        .ponton-contract .signature-row { margin-top: 48px; display: table; width: 100%; }
+                        .ponton-contract .signature-box { display: table-cell; width: 50%; padding-right: 32px; }
+                        .ponton-contract .signature-line { border-top: 1px solid #111; padding-top: 6px; }
+                    </style>
+                    <div class="page ponton-contract">
+                        <div t-raw="contract.body_html"/>
+                        <div class="signature-row">
+                            <div class="signature-box">
+                                <div class="signature-line">Organizador</div>
+                            </div>
+                            <div class="signature-box">
+                                <div class="signature-line">El Ponton / Manso SRL</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 30px; font-size: 10px;">
+                            Version <span t-field="contract.version"/> -
+                            Hash texto: <span t-field="contract.body_hash"/>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

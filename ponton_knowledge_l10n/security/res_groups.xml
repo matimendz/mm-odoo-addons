@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_ponton_admin" model="res.groups">
+        <field name="name">El Pontón / Administración</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_operations_manager" model="res.groups">
+        <field name="name">El Pontón / Encargados y Operaciones</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_cashier" model="res.groups">
+        <field name="name">El Pontón / Caja</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_bar" model="res.groups">
+        <field name="name">El Pontón / Barra</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_salon" model="res.groups">
+        <field name="name">El Pontón / Salón, Mozos y Runners</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_kitchen" model="res.groups">
+        <field name="name">El Pontón / Cocina</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_maintenance" model="res.groups">
+        <field name="name">El Pontón / Mantenimiento y Limpieza</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_marketing" model="res.groups">
+        <field name="name">El Pontón / Marketing y Producción</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="group_ponton_security" model="res.groups">
+        <field name="name">El Pontón / Seguridad</field>
+        <field name="implied_ids" eval="[(4, ref('document_knowledge.group_document_user'))]" />
+    </record>
+
+    <record id="document_page.group_document_manager" model="res.groups">
+        <field
+            name="implied_ids"
+            eval="[
+                (4, ref('group_ponton_admin')),
+                (4, ref('group_ponton_operations_manager')),
+                (4, ref('group_ponton_cashier')),
+                (4, ref('group_ponton_bar')),
+                (4, ref('group_ponton_salon')),
+                (4, ref('group_ponton_kitchen')),
+                (4, ref('group_ponton_maintenance')),
+                (4, ref('group_ponton_marketing')),
+                (4, ref('group_ponton_security'))
+            ]"
+        />
+    </record>
+</odoo>

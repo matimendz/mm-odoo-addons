@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ponton_fudo.analytic_operation_evento_privado" model="account.analytic.account">
+        <field name="ponton_contract_required_for_events">1</field>
+    </record>
+
+    <record id="event_type_private_event" model="event.type">
+        <field name="name">Evento Privado</field>
+        <field name="ponton_contract_required">1</field>
+        <field name="ponton_contract_kind">private_event</field>
+        <field name="ponton_contract_validity_days">10</field>
+    </record>
+
+    <record id="package_private_event_essential" model="ponton.private.event.package">
+        <field name="name">Ponton Esencial</field>
+        <field name="sequence">10</field>
+        <field name="commercial_model">package_per_person</field>
+        <field name="price_per_person">75000</field>
+        <field name="minimum_guests">50</field>
+        <field name="product_id" ref="product_private_event_package"/>
+        <field name="included_services">Espacio + servicio + bebida estandar + finger food.</field>
+    </record>
+    <record id="package_private_event_plus" model="ponton.private.event.package">
+        <field name="name">Ponton Plus</field>
+        <field name="sequence">20</field>
+        <field name="commercial_model">package_per_person</field>
+        <field name="price_per_person">110000</field>
+        <field name="minimum_guests">50</field>
+        <field name="product_id" ref="product_private_event_package"/>
+        <field name="included_services">Esencial + menu sentado de 3 pasos + DJ basico.</field>
+    </record>
+    <record id="package_private_event_premium" model="ponton.private.event.package">
+        <field name="name">Ponton Premium</field>
+        <field name="sequence">30</field>
+        <field name="commercial_model">package_per_person</field>
+        <field name="price_per_person">150000</field>
+        <field name="minimum_guests">50</field>
+        <field name="product_id" ref="product_private_event_package"/>
+        <field name="included_services">Plus + decoracion + audio profesional + barra premium.</field>
+    </record>
+
+    <record id="rate_private_event_weekday" model="ponton.private.event.rate">
+        <field name="name">Lun-Jue / Domingo</field>
+        <field name="season_band">medium</field>
+        <field name="day_type">weekday_sunday</field>
+        <field name="space_fee">150000</field>
+        <field name="minimum_consumption">100000</field>
+        <field name="usd_reference">250</field>
+    </record>
+    <record id="rate_private_event_friday_saturday_low" model="ponton.private.event.rate">
+        <field name="name">Vie-Sab fuera de temporada</field>
+        <field name="season_band">low</field>
+        <field name="day_type">friday_saturday</field>
+        <field name="space_fee">300000</field>
+        <field name="minimum_consumption">200000</field>
+        <field name="usd_reference">500</field>
+    </record>
+    <record id="rate_private_event_friday_saturday_high" model="ponton.private.event.rate">
+        <field name="name">Vie-Sab temporada alta</field>
+        <field name="season_band">high</field>
+        <field name="day_type">friday_saturday</field>
+        <field name="space_fee">600000</field>
+        <field name="minimum_consumption">400000</field>
+        <field name="usd_reference">1000</field>
+    </record>
+    <record id="rate_private_event_friday_saturday_very_high" model="ponton.private.event.rate">
+        <field name="name">Vie-Sab temporada muy alta</field>
+        <field name="season_band">very_high</field>
+        <field name="day_type">friday_saturday</field>
+        <field name="space_fee">900000</field>
+        <field name="minimum_consumption">600000</field>
+        <field name="usd_reference">1500</field>
+    </record>
+
+    <record id="blackout_dia_del_amigo" model="ponton.private.event.blackout">
+        <field name="name">Dia del Amigo</field>
+        <field name="date">2026-07-20</field>
+        <field name="reason">Operacion regular del bar prima.</field>
+    </record>
+    <record id="blackout_navidad" model="ponton.private.event.blackout">
+        <field name="name">Navidad</field>
+        <field name="date">2026-12-24</field>
+        <field name="reason">Blackout comercial.</field>
+    </record>
+    <record id="blackout_anio_nuevo" model="ponton.private.event.blackout">
+        <field name="name">Ano Nuevo</field>
+        <field name="date">2026-12-31</field>
+        <field name="reason">Blackout comercial.</field>
+    </record>
+
+    <record id="partner_service_decoration" model="ponton.private.event.partner.service">
+        <field name="name">Decoracion - El Secreto</field>
+        <field name="category">decoration</field>
+        <field name="markup_percent">10</field>
+    </record>
+    <record id="partner_service_sound" model="ponton.private.event.partner.service">
+        <field name="name">Sonido profesional - Punto Audio</field>
+        <field name="category">sound</field>
+        <field name="markup_percent">10</field>
+    </record>
+    <record id="partner_service_dj" model="ponton.private.event.partner.service">
+        <field name="name">DJ profesional - Cartera Ponton</field>
+        <field name="category">dj</field>
+        <field name="markup_percent">10</field>
+    </record>
+
+    <record id="private_event_checklist_template_default" model="ponton.private.event.checklist.template">
+        <field name="name">Checklist evento privado</field>
+    </record>
+
+    <record id="checklist_confirm_final_guests" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Confirmar cantidad final de invitados 48 hs antes</field>
+        <field name="stage">pre_event_t7</field>
+        <field name="sequence">10</field>
+        <field name="is_critical">1</field>
+    </record>
+    <record id="checklist_balance_paid" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Confirmar saldo pago</field>
+        <field name="stage">pre_event_t7</field>
+        <field name="sequence">20</field>
+        <field name="is_critical">1</field>
+    </record>
+    <record id="checklist_team_briefing" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Briefing interno con Fabian y equipo</field>
+        <field name="stage">pre_event_t7</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="checklist_suppliers" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Confirmar DJ, audio y deco</field>
+        <field name="stage">pre_event_t7</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="checklist_supplies" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Pedido de bebida, comida, hielo y descartables</field>
+        <field name="stage">pre_event_t7</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="checklist_fudo" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Cargar evento en Fudo</field>
+        <field name="stage">pre_event_t7</field>
+        <field name="sequence">60</field>
+    </record>
+    <record id="checklist_opening" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Revisar termicas, iluminacion y climatizacion</field>
+        <field name="stage">event_morning</field>
+        <field name="sequence">70</field>
+    </record>
+    <record id="checklist_mise_en_place" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Mise en place: vajilla, manteleria, cristaleria y barra</field>
+        <field name="stage">event_morning</field>
+        <field name="sequence">80</field>
+    </record>
+    <record id="checklist_supplier_reception" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Recepcion de proveedores</field>
+        <field name="stage">event_morning</field>
+        <field name="sequence">90</field>
+    </record>
+    <record id="checklist_client_validation" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Validar servicios contratados con cliente</field>
+        <field name="stage">reception</field>
+        <field name="sequence">100</field>
+    </record>
+    <record id="checklist_event_timing" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Control de timing del evento</field>
+        <field name="stage">during</field>
+        <field name="sequence">110</field>
+    </record>
+    <record id="checklist_extras" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Registro de extras</field>
+        <field name="stage">during</field>
+        <field name="sequence">120</field>
+    </record>
+    <record id="checklist_bar_close" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Cierre de barra</field>
+        <field name="stage">closing</field>
+        <field name="sequence">130</field>
+        <field name="is_critical">1</field>
+    </record>
+    <record id="checklist_fudo_close" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Cierre Fudo: mesa consumicion y mesa servicio</field>
+        <field name="stage">closing</field>
+        <field name="sequence">140</field>
+        <field name="is_critical">1</field>
+    </record>
+    <record id="checklist_deposit_account" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Aplicar sena como cuenta corriente</field>
+        <field name="stage">closing</field>
+        <field name="sequence">150</field>
+    </record>
+    <record id="checklist_damage_review" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Revision de danos</field>
+        <field name="stage">post_event</field>
+        <field name="sequence">160</field>
+    </record>
+    <record id="checklist_nps" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Enviar encuesta NPS T+2</field>
+        <field name="stage">post_event</field>
+        <field name="sequence">170</field>
+    </record>
+    <record id="checklist_review_request" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Pedir resena Google T+3</field>
+        <field name="stage">post_event</field>
+        <field name="sequence">180</field>
+    </record>
+    <record id="checklist_internal_close" model="ponton.private.event.checklist.item">
+        <field name="template_id" ref="private_event_checklist_template_default"/>
+        <field name="name">Cierre interno y aprendizajes</field>
+        <field name="stage">post_event</field>
+        <field name="sequence">190</field>
+    </record>
+</odoo>

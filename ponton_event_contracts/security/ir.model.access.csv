@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ponton_event_contract_user,ponton.event.contract user,model_ponton_event_contract,base.group_user,1,0,0,0
+access_ponton_event_contract_manager,ponton.event.contract manager,model_ponton_event_contract,event.group_event_manager,1,1,1,1
+access_ponton_event_contract_clause_user,ponton.event.contract.clause user,model_ponton_event_contract_clause,base.group_user,1,0,0,0
+access_ponton_event_contract_clause_manager,ponton.event.contract.clause manager,model_ponton_event_contract_clause,event.group_event_manager,1,1,1,1
+access_ponton_event_organizer_migration_wizard,ponton.event.organizer.migration.wizard,model_ponton_event_organizer_migration_wizard,event.group_event_manager,1,1,1,1

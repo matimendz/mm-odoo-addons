@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_fudo_expense_analytic_rule_list" model="ir.ui.view">
+        <field name="name">ponton.fudo.expense.analytic.rule.list</field>
+        <field name="model">ponton.fudo.expense.analytic.rule</field>
+        <field name="arch" type="xml">
+            <list string="Reglas analíticas Fudo" default_order="priority,id">
+                <field name="active" widget="boolean_toggle"/>
+                <field name="priority"/>
+                <field name="name"/>
+                <field name="keyword"/>
+                <field name="provider_keyword"/>
+                <field name="fudo_category_id"/>
+                <field name="fudo_category_name"/>
+                <field name="operation_analytic_account_id"/>
+                <field name="use_event_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_fudo_expense_analytic_rule_form" model="ir.ui.view">
+        <field name="name">ponton.fudo.expense.analytic.rule.form</field>
+        <field name="model">ponton.fudo.expense.analytic.rule</field>
+        <field name="arch" type="xml">
+            <form string="Regla analítica Fudo">
+                <sheet>
+                    <group>
+                        <field name="active"/>
+                        <field name="priority"/>
+                        <field name="name"/>
+                    </group>
+                    <group string="Condiciones">
+                        <field name="keyword"/>
+                        <field name="provider_keyword"/>
+                        <field name="fudo_category_id"/>
+                        <field name="fudo_category_name"/>
+                    </group>
+                    <group string="Analítica">
+                        <field name="operation_analytic_account_id"/>
+                        <field name="use_event_date"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fudo_expense_analytic_rule" model="ir.actions.act_window">
+        <field name="name">Reglas analíticas Fudo</field>
+        <field name="res_model">ponton.fudo.expense.analytic.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_fudo_expense_analytic_rule"
+        name="Reglas analíticas Fudo"
+        parent="account.menu_finance_configuration"
+        action="action_fudo_expense_analytic_rule"
+        sequence="85"/>
+
+</odoo>

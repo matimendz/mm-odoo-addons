@@ -1,0 +1,20 @@
+{
+    'name': 'El Pontón — Integración Fudo',
+    'version': '19.0.1.0.0',
+    'category': 'Sales',
+    'summary': 'Analítica nativa para ventas y gastos Fudo',
+    'author': 'Matias Mendez',
+    'depends': ['sale_management', 'sale_margin', 'event', 'account', 'analytic'],
+    'data': [
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
+        'data/analytic_data.xml',
+        'data/ir_cron.xml',
+        'views/fudo_expense_analytic_rule_views.xml',
+        'views/sale_order_views.xml',
+        'views/event_event_views.xml',
+    ],
+    'license': 'LGPL-3',
+    'installable': True,
+    'auto_install': False,
+}

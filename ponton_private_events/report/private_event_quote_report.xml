@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_ponton_private_event_quote" model="ir.actions.report">
+        <field name="name">Cotizacion Eventos Privados El Ponton</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ponton_private_events.report_ponton_private_event_quote</field>
+        <field name="report_file">ponton_private_events.report_ponton_private_event_quote</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_ponton_private_event_quote">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="order">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>Cotizacion - Eventos Privados El Ponton</h1>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Evento</th>
+                                <td><span t-field="order.ponton_private_event_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Cliente</th>
+                                <td><span t-field="order.partner_id"/></td>
+                            </tr>
+                            <tr>
+                                <th>Fecha</th>
+                                <td><span t-field="order.ponton_private_event_id.date_begin"/></td>
+                            </tr>
+                            <tr>
+                                <th>Invitados</th>
+                                <td><span t-field="order.ponton_private_event_id.ponton_private_guaranteed_guests"/></td>
+                            </tr>
+                            <tr>
+                                <th>Vigencia</th>
+                                <td><span t-field="order.ponton_private_quote_valid_until"/></td>
+                            </tr>
+                        </table>
+
+                        <t t-set="blocks" t-value="[('base', 'A) Servicio base'), ('gastronomy', 'B) Gastronomia'), ('optional', 'C) Adicionales opcionales'), ('conditions', 'D) Condiciones')]"/>
+                        <t t-foreach="blocks" t-as="block">
+                            <t t-set="lines" t-value="order.order_line.filtered(lambda line: line.ponton_private_quote_block == block[0] and not line.display_type)"/>
+                            <t t-if="lines">
+                                <h2><t t-out="block[1]"/></h2>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Concepto</th>
+                                            <th class="text-end">Cantidad</th>
+                                            <th class="text-end">Unitario</th>
+                                            <th class="text-end">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="lines" t-as="line">
+                                            <td><span t-field="line.name"/></td>
+                                            <td class="text-end"><span t-field="line.product_uom_qty"/></td>
+                                            <td class="text-end"><span t-field="line.price_unit"/></td>
+                                            <td class="text-end"><span t-field="line.price_subtotal"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </t>
+                        </t>
+
+                        <h2>Condiciones</h2>
+                        <ul>
+                            <li>Sena: 30% al firmar contrato.</li>
+                            <li>Saldo: 7 dias antes del evento.</li>
+                            <li>Vigencia de cotizacion: 7 dias.</li>
+                            <li>Cancelacion: mas de 30 dias devuelve sena; menos de 30 dias pierde sena.</li>
+                            <li>Bebida exclusiva de El Ponton. Descorche declarado por botella.</li>
+                        </ul>
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Total estimado</th>
+                                <td class="text-end"><span t-field="order.amount_total"/></td>
+                            </tr>
+                            <tr>
+                                <th>Sena 30%</th>
+                                <td class="text-end"><span t-field="order.ponton_private_deposit_amount"/></td>
+                            </tr>
+                            <tr>
+                                <th>Referencia USD</th>
+                                <td class="text-end"><span t-field="order.ponton_private_total_usd_reference"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

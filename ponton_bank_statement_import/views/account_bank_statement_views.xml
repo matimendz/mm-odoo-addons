@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bank_statement_form_ponton_balance" model="ir.ui.view">
+        <field name="name">account.bank.statement.form.ponton.balance</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='balance_end_real']" position="after">
+                <field name="ponton_import_source" readonly="1"/>
+                <field name="ponton_balance_expected" readonly="1"
+                       invisible="not ponton_import_source"/>
+                <field name="ponton_balance_difference" readonly="1"
+                       invisible="not ponton_import_source"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

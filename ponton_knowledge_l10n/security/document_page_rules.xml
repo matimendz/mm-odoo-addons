@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="document_page_visibility_group_rule" model="ir.rule">
+        <field name="name">document.page visibility by Pontón groups</field>
+        <field name="model_id" ref="document_page.model_document_page" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|', ('ponton_visibility_group_ids', '=', False), ('ponton_visibility_group_ids', 'in', user.group_ids.ids)]</field>
+    </record>
+
+    <record id="document_page_history_visibility_group_rule" model="ir.rule">
+        <field name="name">document.page.history visibility by Pontón groups</field>
+        <field name="model_id" ref="document_page.model_document_page_history" />
+        <field name="global" eval="True" />
+        <field
+            name="domain_force"
+        >['|', ('page_id.ponton_visibility_group_ids', '=', False), ('page_id.ponton_visibility_group_ids', 'in', user.group_ids.ids)]</field>
+    </record>
+</odoo>

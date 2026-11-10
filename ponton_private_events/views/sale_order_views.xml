@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_ponton_private_events" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.ponton.private.events</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_ponton_private_confirm_event" type="object"
+                        string="Confirmar evento privado" class="btn-primary"
+                        invisible="not ponton_private_event_id or state not in ('draft', 'sent')"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_unit']" position="before">
+                <field name="ponton_private_quote_block" optional="show"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Evento privado" name="ponton_private_sale" invisible="not ponton_private_event_id">
+                    <group>
+                        <group>
+                            <field name="ponton_private_event_id"/>
+                            <field name="ponton_private_quote_version"/>
+                            <field name="ponton_private_commercial_model"/>
+                            <field name="ponton_private_quote_valid_until"/>
+                        </group>
+                        <group>
+                            <field name="ponton_private_total_usd_reference"/>
+                            <field name="ponton_private_deposit_amount"/>
+                            <field name="ponton_private_balance_due_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

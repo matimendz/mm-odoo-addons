@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ponton_reserva_user,ponton.reserva user,model_ponton_reserva,base.group_user,1,1,1,0
+access_ponton_reserva_manager,ponton.reserva manager,model_ponton_reserva,base.group_system,1,1,1,1
+access_ponton_reserva_tag_user,ponton.reserva.tag user,model_ponton_reserva_tag,base.group_user,1,0,0,0
+access_ponton_reserva_tag_manager,ponton.reserva.tag manager,model_ponton_reserva_tag,base.group_system,1,1,1,1

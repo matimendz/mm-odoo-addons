@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="clause_brands" model="ponton.event.contract.clause">
+        <field name="sequence">20</field>
+        <field name="category">brands</field>
+        <field name="name">Uso de marcas en comunicaciones</field>
+        <field name="body" type="html">
+            <h2>Uso de marcas en comunicaciones</h2>
+            <p>No se permitira el uso de marcas de bebidas de cerveza o energizantes en ninguna comunicacion del evento, de acuerdo con los contratos vigentes con proveedores de El Ponton.</p>
+            <p>La marca El Ponton debe figurar en todas las comunicaciones como sponsor oficial del evento. Link a los recursos graficos: www.elponton.com.ar/logo-el-ponton</p>
+        </field>
+    </record>
+
+    <record id="clause_access" model="ponton.event.contract.clause">
+        <field name="sequence">30</field>
+        <field name="category">access</field>
+        <field name="name">Ingresos y prioridad de reservas</field>
+        <field name="body" type="html">
+            <h2>Ingresos y prioridad de reservas</h2>
+            <p>El filtro de los ingresos sera un trabajo en conjunto entre el/los porteros del organizador y la seguridad privada y policia contratada por Manso SRL. Quien maneja el dinero de las entradas, y por ende del organizador, sera unicamente el/los porteros.</p>
+            <p>La capacidad maxima sera establecida {capacity_lock_days} dias antes del evento para poder presentar la habilitacion eventual municipal. Una vez comenzado el tramite no sera posible la modificacion de la capacidad total.</p>
+            <p>Recomendamos el uso de sistemas digitales con entrada QR para el filtrado y control en el ingreso, reduciendo falsificaciones, extravios, errores de registro y tiempos de espera.</p>
+            <p>El bar de El Ponton operara en su horario normal antes del evento. La entrada sera controlada y filtrada dos horas antes del inicio del evento para garantizar que solo los asistentes con entradas o quienes abonen el ingreso en filtro/boleteria accedan al predio.</p>
+            <p>Se deberan vender entradas anticipadas por la capacidad completa del evento para evitar remanentes en puerta. Si la capacidad no fue alcanzada al maximo, se podran vender ingresos en puerta durante el evento.</p>
+            <p>Se entregaran {manso_guest_passes} ingresos sin cargo a Manso, que deberan ser gestionados con antelacion al comienzo del evento.</p>
+            <p>Las reservas existentes en el bar El Ponton tendran prioridad y deberan ser comunicadas a los organizadores en el momento de la confirmacion del contrato. Todas las reservas comunicadas deberan contar con acceso sin cargo al evento.</p>
+        </field>
+    </record>
+
+    <record id="clause_refreshments" model="ponton.event.contract.clause">
+        <field name="sequence">40</field>
+        <field name="category">refreshments</field>
+        <field name="name">Sobre bebidas y refrigerios</field>
+        <field name="body" type="html">
+            <h2>Sobre bebidas y refrigerios</h2>
+            <p>Se permitira el ingreso, de parte del organizador, de una conservadora para bebidas y refrigerios de DJs, operadores, proveedores y equipo de produccion.</p>
+            <p>Los proveedores afectados al horario de la cena podran anotarse a la cena del personal que se servira a las 21:00 hs, sin costo alguno.</p>
+            <p>El organizador contara con una cuenta corriente para retirar comida y bebida con un descuento del 30% en toda la carta de El Ponton, abonando solamente en efectivo.</p>
+        </field>
+    </record>
+
+    <record id="clause_suppliers" model="ponton.event.contract.clause">
+        <field name="sequence">50</field>
+        <field name="category">suppliers</field>
+        <field name="name">Proveedores, armado y desarmado</field>
+        <field name="body" type="html">
+            <h2>Proveedores, armado y desarmado</h2>
+            <p>El armado y desarmado, ingreso de proveedores, decoracion y tareas relacionadas podran comenzar despues de las 10:00 hs y deberan finalizar antes de las 6:00 hs. No deberan interferir con los horarios de apertura normal del bar. El desarmado puede programarse en etapas dadas las limitaciones de tiempo.</p>
+            <p>El organizador debera entregar una planilla con la lista de proveedores y el responsable de cada uno {supplier_deadline_hours} horas antes del evento, incluyendo horarios de ingreso y permanencia en el venue para armado y desarmado.</p>
+            <p>Manso proveera todos los equipos que tenga disponibles, confirmando este punto hasta 10 dias antes del evento.</p>
+        </field>
+    </record>
+
+    <record id="clause_coexistence" model="ponton.event.contract.clause">
+        <field name="sequence">60</field>
+        <field name="category">coexistence</field>
+        <field name="name">Convivencia con actividades del club</field>
+        <field name="body" type="html">
+            <h2>Convivencia con el resto de las actividades del Club</h2>
+            <p>Se deberan respetar las normas de convivencia, en especial la reglamentacion municipal de ruidos molestos durante horarios donde se comparten actividades con el Club CAPRI, como partidos, clases, uso de pileta u otras actividades.</p>
+        </field>
+    </record>
+
+    <record id="clause_cancellation" model="ponton.event.contract.clause">
+        <field name="sequence">70</field>
+        <field name="category">cancellation</field>
+        <field name="name">Cancelacion del evento</field>
+        <field name="body" type="html">
+            <h2>Cancelacion del evento</h2>
+            <p>En caso de cancelacion del evento, los asistentes tendran derecho a un reembolso completo del valor de la entrada o, en su defecto, la opcion de cambiar su entrada por la del evento reprogramado en una fecha futura.</p>
+        </field>
+    </record>
+</odoo>

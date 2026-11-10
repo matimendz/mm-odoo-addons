@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ponton_private_event_package_user,ponton.private.event.package user,model_ponton_private_event_package,base.group_user,1,0,0,0
+access_ponton_private_event_package_manager,ponton.private.event.package manager,model_ponton_private_event_package,event.group_event_manager,1,1,1,1
+access_ponton_private_event_rate_user,ponton.private.event.rate user,model_ponton_private_event_rate,base.group_user,1,0,0,0
+access_ponton_private_event_rate_manager,ponton.private.event.rate manager,model_ponton_private_event_rate,event.group_event_manager,1,1,1,1
+access_ponton_private_event_blackout_user,ponton.private.event.blackout user,model_ponton_private_event_blackout,base.group_user,1,0,0,0
+access_ponton_private_event_blackout_manager,ponton.private.event.blackout manager,model_ponton_private_event_blackout,event.group_event_manager,1,1,1,1
+access_ponton_private_event_partner_service_user,ponton.private.event.partner.service user,model_ponton_private_event_partner_service,base.group_user,1,0,0,0
+access_ponton_private_event_partner_service_manager,ponton.private.event.partner.service manager,model_ponton_private_event_partner_service,event.group_event_manager,1,1,1,1
+access_ponton_private_event_checklist_template_user,ponton.private.event.checklist.template user,model_ponton_private_event_checklist_template,base.group_user,1,0,0,0
+access_ponton_private_event_checklist_template_manager,ponton.private.event.checklist.template manager,model_ponton_private_event_checklist_template,event.group_event_manager,1,1,1,1
+access_ponton_private_event_checklist_item_user,ponton.private.event.checklist.item user,model_ponton_private_event_checklist_item,base.group_user,1,1,1,0
+access_ponton_private_event_checklist_item_manager,ponton.private.event.checklist.item manager,model_ponton_private_event_checklist_item,event.group_event_manager,1,1,1,1
+access_ponton_private_event_incident_user,ponton.private.event.incident user,model_ponton_private_event_incident,base.group_user,1,1,1,0
+access_ponton_private_event_incident_manager,ponton.private.event.incident manager,model_ponton_private_event_incident,event.group_event_manager,1,1,1,1

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crm_lead_form_ponton_private_events" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit.ponton.private.events</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_ponton_create_private_event" type="object"
+                        string="Crear evento privado" class="btn-primary"
+                        invisible="not ponton_private_event_type or ponton_private_event_id"/>
+                <button name="action_ponton_create_private_quote" type="object"
+                        string="Crear cotizacion privada"
+                        invisible="not ponton_private_event_type"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Evento privado" name="ponton_private_event">
+                    <group>
+                        <group>
+                            <field name="ponton_private_event_type"/>
+                            <field name="ponton_private_tentative_date"/>
+                            <field name="ponton_private_guest_count"/>
+                            <field name="ponton_private_guest_mode"/>
+                        </group>
+                        <group>
+                            <field name="ponton_private_origin_channel"/>
+                            <field name="ponton_private_budget"/>
+                            <field name="ponton_private_next_action_date"/>
+                            <field name="ponton_private_lost_reason"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="ponton_private_event_id"/>
+                        <field name="ponton_private_quote_id"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

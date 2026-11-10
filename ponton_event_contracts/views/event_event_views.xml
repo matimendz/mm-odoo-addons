@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_form_ponton_contracts" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.ponton.contracts</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="priority">90</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_ponton_generate_contract" type="object"
+                        string="Generar contrato" class="btn-primary"
+                        invisible="not ponton_contract_required or ponton_contract_state in ('sent', 'signed')"/>
+                <button name="action_ponton_send_contract" type="object"
+                        string="Enviar a firma" class="btn-primary"
+                        invisible="not ponton_contract_required or ponton_contract_state not in ('generated', 'sent')"/>
+            </xpath>
+
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning" role="alert"
+                     invisible="not ponton_contract_required or ponton_contract_state == 'signed'">
+                    Este evento requiere contrato de coproduccion firmado online antes de pasar a una etapa confirmada.
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_ponton_contracts" type="object"
+                        class="oe_stat_button" icon="fa-file-text-o"
+                        invisible="not ponton_contract_required">
+                    <field name="ponton_contract_count" widget="statinfo" string="Contratos"/>
+                </button>
+            </xpath>
+
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="ponton_contract_required"/>
+                <field name="ponton_contract_state" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='ponton_contract_state']" position="after">
+                <field name="ponton_contract_manso_partner_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='event_type_id']" position="before">
+                <group name="ponton_identity_group" string="Identidad"/>
+            </xpath>
+
+            <xpath expr="//group[@name='ponton_identity_group']" position="inside">
+                <xpath expr="//field[@name='event_type_id']" position="move"/>
+                <xpath expr="//field[@name='fudo_operation_analytic_account_id']" position="move"/>
+                <xpath expr="//field[@name='fudo_event_analytic_account_id']" position="move"/>
+                <xpath expr="//field[@name='tag_ids']" position="move"/>
+                <xpath expr="//field[@name='supports_ids']" position="move"/>
+                <xpath expr="//field[@name='ponton_contract_required']" position="move"/>
+                <xpath expr="//field[@name='ponton_contract_state']" position="move"/>
+            </xpath>
+
+            <xpath expr="//field[@name='organizer_id']" position="replace">
+                <group name="ponton_organizer_group" string="Organizador">
+                    <field name="organizer_id" string="Organizador"
+                           readonly="ponton_contract_state in ('sent', 'signed')"/>
+                    <field name="ponton_contract_organizer_email"
+                           readonly="ponton_contract_state in ('sent', 'signed')"/>
+                    <field name="ponton_contract_organizer_phone"
+                           readonly="ponton_contract_state in ('sent', 'signed')"/>
+                    <field name="ponton_contract_organizer_document"
+                           readonly="ponton_contract_state in ('sent', 'signed')"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//sheet/notebook" position="before">
+                <group name="ponton_header_grid" col="2"/>
+            </xpath>
+
+            <xpath expr="//group[@name='ponton_header_grid']" position="inside">
+                <xpath expr="//group[@name='ponton_identity_group']" position="move"/>
+                <xpath expr="//group[@name='ponton_organizer_group']" position="move"/>
+                <xpath expr="//group[@name='ponton_sales_attendance_group']" position="move"/>
+                <xpath expr="//group[@name='ponton_schedule_group']" position="move"/>
+                <xpath expr="//group[@name='ponton_production_group']" position="move"/>
+            </xpath>
+
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Contrato" name="ponton_contract" invisible="not ponton_contract_required">
+                    <group>
+                        <group string="Firmantes">
+                            <field name="ponton_contract_kind"/>
+                            <field name="ponton_contract_event_name"/>
+                        </group>
+                        <group string="Estado">
+                            <field name="ponton_contract_id"/>
+                            <field name="ponton_contract_sign_oca_request_id"/>
+                            <field name="ponton_contract_signed_at"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Datos del evento">
+                            <field name="ponton_contract_guest_count"/>
+                            <field name="ponton_contract_final_capacity"/>
+                            <field name="ponton_contract_manso_guest_passes"/>
+                            <field name="ponton_contract_capacity_lock_days"/>
+                            <field name="ponton_contract_supplier_deadline_hours"/>
+                        </group>
+                        <group string="Notas operativas">
+                            <field name="ponton_contract_access_filter_note"/>
+                            <field name="ponton_contract_reservation_note"/>
+                        </group>
+                    </group>
+                    <group string="Division de ingresos y gastos">
+                        <field name="ponton_contract_ponton_income"/>
+                        <field name="ponton_contract_ponton_expense"/>
+                        <field name="ponton_contract_organizer_income"/>
+                        <field name="ponton_contract_organizer_expense"/>
+                    </group>
+                    <group string="Clausulas especiales">
+                        <field name="ponton_contract_special_terms" nolabel="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_event_tree_ponton_contracts" model="ir.ui.view">
+        <field name="name">event.event.list.inherit.ponton.contracts</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="ponton_contract_required" optional="hide"/>
+                <field name="ponton_contract_state" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_event_search_ponton_contracts" model="ir.ui.view">
+        <field name="name">event.event.search.inherit.ponton.contracts</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter name="ponton_contract_pending" string="Contrato pendiente"
+                        domain="[('ponton_contract_required', '=', True), ('ponton_contract_state', '!=', 'signed')]"/>
+                <filter name="ponton_contract_signed" string="Contrato firmado"
+                        domain="[('ponton_contract_state', '=', 'signed')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

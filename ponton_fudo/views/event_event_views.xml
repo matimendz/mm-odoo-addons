@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================== FORM ==================== -->
+    <record id="view_event_form_ponton_fudo" model="ir.ui.view">
+        <field name="name">event.event.form.inherit.ponton_fudo</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="arch" type="xml">
+            <!-- Analíticas Fudo junto a los tags del evento -->
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="fudo_operation_analytic_account_id"
+                       string="Tipo de operación"
+                       required="active"/>
+                <field name="fudo_event_analytic_account_id"
+                       string="Cuenta analítica del evento"
+                       required="active"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ==================== TREE ==================== -->
+    <record id="view_event_tree_ponton_fudo" model="ir.ui.view">
+        <field name="name">event.event.tree.inherit.ponton_fudo</field>
+        <field name="model">event.event</field>
+        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_begin']" position="after">
+                <field name="fudo_operation_analytic_account_id" optional="show"/>
+                <field name="fudo_event_analytic_account_id" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

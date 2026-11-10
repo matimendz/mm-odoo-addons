@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Lista de facturas: columna Diario de pago después de Estado -->
+    <record id="view_out_invoice_tree_ponton_account" model="ir.ui.view">
+        <field name="name">account.move.list.ponton.account</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="status_in_payment" position="after">
+                <field name="payment_journal_ids"
+                       widget="many2many_tags"
+                       string="Diario de pago"
+                       optional="show"
+                       options="{'color_field': 'color', 'no_open': True}"
+                       readonly="1"/>
+                <field name="fudo_user_name"
+                       string="Usuario Fudo"
+                       optional="show"
+                       readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Lista de facturas de compra: mismas columnas -->
+    <record id="view_in_invoice_tree_ponton_account" model="ir.ui.view">
+        <field name="name">account.move.in.list.ponton.account</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_tree"/>
+        <field name="arch" type="xml">
+            <field name="status_in_payment" position="after">
+                <field name="payment_journal_ids"
+                       widget="many2many_tags"
+                       string="Diario de pago"
+                       optional="show"
+                       options="{'color_field': 'color', 'no_open': True}"
+                       readonly="1"/>
+                <field name="fudo_user_name"
+                       string="Usuario Fudo"
+                       optional="show"
+                       readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Formulario de factura: diarios de pago junto al widget de pagos -->
+    <record id="view_move_form_ponton_account" model="ir.ui.view">
+        <field name="name">account.move.form.ponton.account</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <field name="invoice_payments_widget" position="after">
+                <field name="payment_journal_ids"
+                       widget="many2many_tags"
+                       string="Diarios de pago"
+                       options="{'color_field': 'color', 'no_open': True}"
+                       invisible="not payment_journal_ids"
+                       readonly="1"
+                       nolabel="1"
+                       colspan="2"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

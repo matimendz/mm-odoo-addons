@@ -1,6 +1,5 @@
 __pycache__/
-*.py[cod]
-.pytest_cache/
-.ruff_cache/
-.env
-.DS_Store
+*.pyc
+*.pyo
+.cache/
+migration_19/reports/

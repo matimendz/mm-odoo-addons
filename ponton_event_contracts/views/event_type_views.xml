@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_event_type_form_ponton_contracts" model="ir.ui.view">
+        <field name="name">event.type.form.inherit.ponton.contracts</field>
+        <field name="model">event.type</field>
+        <field name="inherit_id" ref="event.view_event_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Contrato" name="ponton_contract">
+                    <group>
+                        <group>
+                            <field name="ponton_contract_required"/>
+                            <field name="ponton_contract_kind" invisible="not ponton_contract_required"/>
+                            <field name="ponton_contract_validity_days" invisible="not ponton_contract_required"/>
+                            <field name="ponton_contract_template_id" invisible="not ponton_contract_required"/>
+                        </group>
+                        <group invisible="not ponton_contract_required">
+                            <field name="ponton_contract_organizer_role_id"/>
+                            <field name="ponton_contract_manso_role_id"/>
+                            <field name="ponton_contract_manso_partner_id"/>
+                        </group>
+                    </group>
+                    <field name="ponton_contract_clause_ids" widget="many2many_tags"
+                           invisible="not ponton_contract_required"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

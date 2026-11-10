@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ponton_event_organizer_migration_wizard_form" model="ir.ui.view">
+        <field name="name">ponton.event.organizer.migration.wizard.form</field>
+        <field name="model">ponton.event.organizer.migration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Migrar organizadores legacy">
+                <sheet>
+                    <group>
+                        <field name="legacy_event_count" readonly="1"/>
+                        <field name="migratable_event_count" readonly="1"/>
+                        <field name="overwrite_company_organizer"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_migrate" type="object" string="Migrar organizadores" class="btn-primary"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ponton_event_organizer_migration_wizard" model="ir.actions.act_window">
+        <field name="name">Migrar organizadores legacy</field>
+        <field name="res_model">ponton.event.organizer.migration.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

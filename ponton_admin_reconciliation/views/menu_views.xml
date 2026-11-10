@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_ponton_reconciliation_root"
+        name="Conciliación administrativa"
+        parent="account.menu_finance_entries"
+        sequence="95"
+        groups="ponton_admin_reconciliation.group_ponton_reconciliation_user"/>
+
+    <menuitem
+        id="menu_ponton_reconciliation_issue"
+        name="Pendientes"
+        parent="menu_ponton_reconciliation_root"
+        action="action_ponton_reconciliation_issue"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_ponton_reconciliation_detect"
+        name="Detectar pendientes"
+        parent="menu_ponton_reconciliation_root"
+        action="action_ponton_reconciliation_detect_wizard"
+        sequence="20"
+        groups="ponton_admin_reconciliation.group_ponton_reconciliation_manager"/>
+
+    <menuitem
+        id="menu_ponton_reconciliation_batch"
+        name="Corridas"
+        parent="menu_ponton_reconciliation_root"
+        action="action_ponton_reconciliation_batch"
+        sequence="30"/>
+
+    <menuitem
+        id="menu_ponton_reconciliation_rule"
+        name="Reglas"
+        parent="menu_ponton_reconciliation_root"
+        action="action_ponton_reconciliation_rule"
+        sequence="40"
+        groups="ponton_admin_reconciliation.group_ponton_reconciliation_manager"/>
+
+</odoo>
+

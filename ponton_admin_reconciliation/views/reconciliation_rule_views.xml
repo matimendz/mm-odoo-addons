@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ponton_reconciliation_rule_list" model="ir.ui.view">
+        <field name="name">ponton.reconciliation.rule.list</field>
+        <field name="model">ponton.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <list string="Reglas de conciliación" default_order="priority,id">
+                <field name="active" widget="boolean_toggle"/>
+                <field name="priority"/>
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="reference_pattern"/>
+                <field name="sign"/>
+                <field name="issue_type"/>
+                <field name="confidence"/>
+                <field name="probable_origin"/>
+                <field name="requires_approval"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ponton_reconciliation_rule_form" model="ir.ui.view">
+        <field name="name">ponton.reconciliation.rule.form</field>
+        <field name="model">ponton.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <form string="Regla de conciliación">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="active"/>
+                            <field name="priority"/>
+                            <field name="name"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="issue_type"/>
+                            <field name="confidence"/>
+                            <field name="probable_origin"/>
+                            <field name="default_approved_action"/>
+                            <field name="requires_approval"/>
+                        </group>
+                    </group>
+                    <group string="Condiciones">
+                        <field name="journal_id"/>
+                        <field name="reference_pattern"/>
+                        <field name="sign"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="min_amount"/>
+                        <field name="max_amount"/>
+                    </group>
+                    <group string="Acción">
+                        <field name="target_account_id"/>
+                        <field name="recommended_action"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ponton_reconciliation_rule" model="ir.actions.act_window">
+        <field name="name">Reglas de conciliación</field>
+        <field name="res_model">ponton.reconciliation.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>
+

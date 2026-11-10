@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="document_page.action_browse_top_content" model="ir.actions.act_window">
+        <field name="name">Explorar documentación</field>
+    </record>
+
+    <record id="document_page.action_browse_all_content" model="ir.actions.act_window">
+        <field name="name">Explorar documentación</field>
+    </record>
+
+    <record id="document_page.action_category" model="ir.actions.act_window">
+        <field name="name">Categorías</field>
+    </record>
+
+    <record id="document_page.action_page" model="ir.actions.act_window">
+        <field name="name">Páginas</field>
+    </record>
+
+    <record id="document_page.action_history" model="ir.actions.act_window">
+        <field name="name">Historial de páginas</field>
+    </record>
+
+    <record id="document_page.menu_browse_content" model="ir.ui.menu">
+        <field name="name">Explorar documentación</field>
+    </record>
+
+    <record id="document_page.menu_category" model="ir.ui.menu">
+        <field name="name">Categorías</field>
+    </record>
+
+    <record id="document_page.menu_page" model="ir.ui.menu">
+        <field name="name">Páginas</field>
+    </record>
+
+    <record id="document_page.menu_page_history" model="ir.ui.menu">
+        <field name="name">Historial de páginas</field>
+    </record>
+
+    <record id="view_browse_top_document_filter_l10n_ponton" model="ir.ui.view">
+        <field name="name">document.page.browse.filter.l10n.ponton</field>
+        <field name="model">document.page</field>
+        <field name="inherit_id" ref="document_page.view_browse_top_document_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='no_parent_id']" position="attributes">
+                <attribute name="string">Recursos principales</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_wiki_form_visibility_l10n_ponton" model="ir.ui.view">
+        <field name="name">document.page.form.visibility.l10n.ponton</field>
+        <field name="model">document.page</field>
+        <field name="inherit_id" ref="document_page.view_wiki_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field
+                    name="ponton_visibility_group_ids"
+                    widget="many2many_tags"
+                    groups="document_page.group_document_manager"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

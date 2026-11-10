@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="analytic_plan_tipo_operacion" model="account.analytic.plan">
+        <field name="name">Tipo de Operación</field>
+        <field name="default_applicability">optional</field>
+    </record>
+
+    <record id="analytic_plan_eventos" model="account.analytic.plan">
+        <field name="name">Eventos</field>
+        <field name="default_applicability">optional</field>
+    </record>
+
+    <record id="analytic_operation_bar_abierto" model="account.analytic.account">
+        <field name="name">Bar Abierto</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="analytic_operation_evento_propio" model="account.analytic.account">
+        <field name="name">Evento Propio</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="analytic_operation_coproduccion" model="account.analytic.account">
+        <field name="name">Coproducción</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="analytic_operation_evento_privado" model="account.analytic.account">
+        <field name="name">Evento Privado</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="analytic_operation_evento_gastronomico" model="account.analytic.account">
+        <field name="name">Evento Gastronómico</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="analytic_operation_estacionamiento" model="account.analytic.account">
+        <field name="name">Estacionamiento</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="analytic_operation_general" model="account.analytic.account">
+        <field name="name">Operación General</field>
+        <field name="plan_id" ref="analytic_plan_tipo_operacion"/>
+    </record>
+
+    <record id="expense_rule_eventos" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Gastos de evento por categoría</field>
+        <field name="priority">200</field>
+        <field name="keyword">EVENTUAL</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_produccion" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Producción de evento</field>
+        <field name="priority">210</field>
+        <field name="keyword">PRODUCCION</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_seguridad" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Seguridad y policía de evento</field>
+        <field name="priority">220</field>
+        <field name="keyword">SEGURIDAD</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_policia" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Policía de evento</field>
+        <field name="priority">221</field>
+        <field name="keyword">POLICIA</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_bebidas" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Bebidas por evento</field>
+        <field name="priority">230</field>
+        <field name="fudo_category_id">4</field>
+        <field name="fudo_category_name">BEBIDAS</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_comidas" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Comidas por evento</field>
+        <field name="priority">231</field>
+        <field name="fudo_category_id">5</field>
+        <field name="fudo_category_name">COMIDAS</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_hielo" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Hielo por evento</field>
+        <field name="priority">232</field>
+        <field name="fudo_category_id">68</field>
+        <field name="fudo_category_name">HIELO</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">1</field>
+    </record>
+
+    <record id="expense_rule_generales_admin" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Gastos generales administrativos</field>
+        <field name="priority">900</field>
+        <field name="keyword">ADMINISTRACION</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">0</field>
+    </record>
+
+    <record id="expense_rule_generales_servicios" model="ponton.fudo.expense.analytic.rule">
+        <field name="name">Servicios e impuestos generales</field>
+        <field name="priority">910</field>
+        <field name="keyword">IMPUESTOS</field>
+        <field name="operation_analytic_account_id" ref="analytic_operation_general"/>
+        <field name="use_event_date">0</field>
+    </record>
+
+</odoo>

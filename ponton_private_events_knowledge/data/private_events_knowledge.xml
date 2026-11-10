@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="category_private_events" model="document.page">
+        <field name="name">El Ponton / Eventos Privados</field>
+        <field name="type">category</field>
+        <field name="template"><![CDATA[
+<h2>Objetivo</h2>
+<p>Documentar el proceso operativo de eventos privados de El Ponton con pasos claros para salon, Odoo y Fudo.</p>
+<h2>Formato recomendado</h2>
+<ul>
+    <li>Objetivo de la etapa.</li>
+    <li>Responsable.</li>
+    <li>Accion en salon.</li>
+    <li>Registro en Odoo.</li>
+    <li>Registro en Fudo cuando corresponda.</li>
+    <li>Evidencia de cierre.</li>
+</ul>
+        ]]></field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance'),
+            ref('ponton_knowledge_l10n.group_ponton_marketing'),
+            ref('ponton_knowledge_l10n.group_ponton_security')
+        ])]"/>
+    </record>
+
+    <record id="page_private_events_index" model="document.page">
+        <field name="name">00 - Indice operativo</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance'),
+            ref('ponton_knowledge_l10n.group_ponton_marketing'),
+            ref('ponton_knowledge_l10n.group_ponton_security')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Eventos privados El Ponton</h1>
+<p>Esta base de conocimiento ordena la operacion completa de eventos privados. Sirve para que comercial, administracion, encargados, salon, barra, cocina y seguridad trabajen con el mismo criterio.</p>
+<h2>Regla base</h2>
+<ul>
+    <li>Odoo es la fuente comercial y administrativa: lead, evento, cotizacion, contrato, sena, saldo, checklist, incidentes y NPS.</li>
+    <li>Fudo es la fuente operativa de consumos: bebida, comida, extras, mesas de servicio y cierre de caja del evento.</li>
+    <li>El salon ejecuta segun checklist y registra novedades para que administracion pueda cerrar sin reconstruir la historia.</li>
+</ul>
+<h2>Mapa de paginas</h2>
+<ol>
+    <li>Flujo completo: lead a post-evento.</li>
+    <li>Comercial y CRM en Odoo.</li>
+    <li>Cotizacion, sena y contrato.</li>
+    <li>Preparacion operativa T-7 a T-2.</li>
+    <li>Dia del evento: salon, barra, cocina y proveedores.</li>
+    <li>Fudo: carga, mesas y cierre.</li>
+    <li>Cierre administrativo en Odoo.</li>
+    <li>Incidentes, danos, NPS y resenas.</li>
+    <li>Roles y responsabilidades.</li>
+    <li>Checklist rapido para encargados.</li>
+</ol>
+<h2>Menus Odoo</h2>
+<ul>
+    <li>Eventos Privados / Leads: consultas y oportunidades.</li>
+    <li>Eventos Privados / Eventos: ficha operativa y checklist.</li>
+    <li>Eventos Privados / Cotizaciones: presupuesto oficial y pedido.</li>
+    <li>Eventos Privados / Incidentes: novedades operativas y danos.</li>
+    <li>Eventos Privados / Configuracion: paquetes, tarifas, blackouts y servicios tercerizados.</li>
+</ul>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_flow" model="document.page">
+        <field name="name">01 - Flujo completo: lead a post-evento</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_marketing')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Flujo completo</h1>
+<table class="table table-sm">
+    <thead><tr><th>Etapa</th><th>Objetivo</th><th>Responsable</th><th>Registro</th><th>Evidencia</th></tr></thead>
+    <tbody>
+        <tr><td>Lead recibido</td><td>Responder rapido y calificar.</td><td>Comercial</td><td>CRM Odoo</td><td>Lead con tipo, fecha, pax, modalidad y origen.</td></tr>
+        <tr><td>Contacto y visita</td><td>Entender necesidad y mostrar salon.</td><td>Comercial / encargado</td><td>CRM Odoo</td><td>Proxima accion cargada.</td></tr>
+        <tr><td>Cotizacion</td><td>Enviar propuesta profesional.</td><td>Comercial</td><td>Sale Order Odoo</td><td>Cotizacion vigente 7 dias.</td></tr>
+        <tr><td>Negociacion</td><td>Ajustar paquete, fecha y adicionales.</td><td>Comercial / administracion</td><td>Evento y cotizacion Odoo</td><td>Version de cotizacion actualizada.</td></tr>
+        <tr><td>Reserva firme</td><td>Bloquear fecha.</td><td>Administracion</td><td>Contrato + evento Odoo</td><td>Contrato firmado online y sena ingresada.</td></tr>
+        <tr><td>Preparacion</td><td>Llegar al evento sin pendientes criticos.</td><td>Responsable operativo</td><td>Checklist Odoo</td><td>Checklist generado y tareas T-7/T-2 en curso.</td></tr>
+        <tr><td>Evento</td><td>Ejecutar salon, barra, cocina y proveedores.</td><td>Responsable operativo</td><td>Odoo + Fudo</td><td>Extras registrados y Fudo abierto correctamente.</td></tr>
+        <tr><td>Cierre</td><td>Cerrar consumos, servicio, saldo e incidentes.</td><td>Encargado / caja / administracion</td><td>Fudo + Odoo</td><td>Fudo cerrado y checklist critico completo.</td></tr>
+        <tr><td>Post-evento</td><td>Medir satisfaccion y aprender.</td><td>Comercial / operaciones</td><td>Odoo</td><td>NPS, resena solicitada y aprendizajes.</td></tr>
+    </tbody>
+</table>
+<p>La fecha no queda reservada con una conversacion informal. El criterio unico de reserva firme es contrato firmado mas sena registrada.</p>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_crm" model="document.page">
+        <field name="name">02 - Comercial y CRM en Odoo</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_marketing')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Comercial y CRM en Odoo</h1>
+<h2>Objetivo</h2>
+<p>Registrar cada consulta como oportunidad trazable y convertirla en evento privado sin mezclarla con coproducciones.</p>
+<h2>Campos minimos del lead</h2>
+<ul>
+    <li>Tipo de evento privado.</li>
+    <li>Fecha tentativa.</li>
+    <li>Invitados estimados.</li>
+    <li>Modalidad deseada: sentado, mixto, parado o pista.</li>
+    <li>Origen: Instagram, WhatsApp, web, referido, planner, Meta Ads u otro.</li>
+    <li>Presupuesto estimado y proxima accion.</li>
+</ul>
+<h2>Acciones en Odoo</h2>
+<ol>
+    <li>Crear o completar el lead desde Eventos Privados / Leads.</li>
+    <li>Usar Crear evento privado cuando la consulta tiene contacto y posibilidad real.</li>
+    <li>Usar Crear cotizacion privada cuando fecha, pax y modelo comercial estan definidos.</li>
+    <li>Registrar follow-ups de cotizacion T+3, T+7 y T+15.</li>
+</ol>
+<h2>No hacer</h2>
+<ul>
+    <li>No usar eventos de coproduccion para privados.</li>
+    <li>No reservar fechas por WhatsApp sin contrato y sena.</li>
+    <li>No prometer condiciones fuera de cotizacion si no quedan escritas en Odoo.</li>
+</ul>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_quote_contract" model="document.page">
+        <field name="name">03 - Cotizacion, sena y contrato</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_marketing')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Cotizacion, sena y contrato</h1>
+<h2>Modelos comerciales</h2>
+<ul>
+    <li>Paquete por persona: Ponton Esencial, Ponton Plus o Ponton Premium.</li>
+    <li>Alquiler + consumo minimo: alquiler exclusivo mas consumo minimo garantizado.</li>
+</ul>
+<h2>Reglas comerciales vigentes</h2>
+<ul>
+    <li>La cotizacion tiene vigencia de 7 dias.</li>
+    <li>La sena es 30% del total.</li>
+    <li>El saldo vence 7 dias antes del evento.</li>
+    <li>La bebida es exclusiva de El Ponton.</li>
+    <li>El descorche se cobra por botella declarada.</li>
+    <li>El catering externo agrega recargo sobre alquiler base.</li>
+    <li>La hora extra se cotiza como adicional.</li>
+</ul>
+<h2>Pasos en Odoo</h2>
+<ol>
+    <li>Desde el evento privado, usar Generar cotizacion.</li>
+    <li>Revisar lineas: servicio base, gastronomia, opcionales y condiciones.</li>
+    <li>Confirmar evento privado desde la cotizacion cuando el cliente acepta.</li>
+    <li>Generar contrato privado y enviarlo a firma online.</li>
+    <li>Marcar Sena ingresada solo cuando administracion confirma el pago.</li>
+    <li>No pasar a etapa confirmada si no hay contrato firmado y sena registrada.</li>
+</ol>
+<h2>Cambios criticos</h2>
+<p>Si luego de firmado cambian fecha, horario, pax, paquete, modelo comercial, importes, catering, descorche, horas extra o condiciones especiales, se debe generar nueva version de contrato.</p>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_preparation" model="document.page">
+        <field name="name">04 - Preparacion operativa T-7 a T-2</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Preparacion T-7 a T-2</h1>
+<h2>T-7</h2>
+<ul>
+    <li>Confirmar que el saldo este pago o que exista autorizacion formal de saldo pendiente.</li>
+    <li>Generar checklist en la ficha del evento Odoo.</li>
+    <li>Briefing con responsable operativo y equipo.</li>
+    <li>Confirmar DJ, audio, decoracion y proveedores externos.</li>
+    <li>Armar pedido de bebida, comida, hielo y descartables.</li>
+</ul>
+<h2>T-2</h2>
+<ul>
+    <li>Confirmar cantidad final de invitados.</li>
+    <li>Validar modalidad del salon: sentado, mixto, parado o pista.</li>
+    <li>Revisar descorche declarado y catering externo si aplica.</li>
+    <li>Preparar carga inicial del evento en Fudo.</li>
+</ul>
+<h2>Evidencia de cierre</h2>
+<p>El checklist debe mostrar responsables asignados y tareas criticas en curso. Cualquier excepcion se registra en chatter o como incidente.</p>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_event_day" model="document.page">
+        <field name="name">05 - Dia del evento: salon, barra, cocina y proveedores</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance'),
+            ref('ponton_knowledge_l10n.group_ponton_security')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Dia del evento</h1>
+<h2>Antes de recibir</h2>
+<ul>
+    <li>Revisar termicas, iluminacion, climatizacion y banos.</li>
+    <li>Completar mise en place de vajilla, manteleria, cristaleria y barra.</li>
+    <li>Recibir proveedores y ubicarlos segun horario acordado.</li>
+    <li>Validar con cliente los servicios contratados y el timing general.</li>
+</ul>
+<h2>Durante</h2>
+<ul>
+    <li>El responsable operativo coordina salon, barra, cocina, seguridad y proveedores.</li>
+    <li>Barra y caja registran consumos y extras en Fudo.</li>
+    <li>Salon comunica cambios de timing, faltantes, roturas o pedidos no previstos.</li>
+    <li>Cocina confirma salida de menu y refuerzos segun paquete o consumo.</li>
+    <li>Seguridad informa situaciones de admision, violencia, acoso, consumo problematico o alcohol a menores.</li>
+</ul>
+<h2>Registro de extras</h2>
+<p>Todo extra se registra en Fudo durante el evento y se deja asentado en Odoo si cambia el cierre administrativo o genera reclamo.</p>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_fudo" model="document.page">
+        <field name="name">06 - Fudo: carga, mesas y cierre</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Fudo: carga, mesas y cierre</h1>
+<h2>Antes del servicio</h2>
+<ul>
+    <li>Cargar o identificar el evento en Fudo con nombre claro.</li>
+    <li>Preparar una mesa de consumicion para bebida y comida.</li>
+    <li>Preparar una mesa de servicio para alquiler, paquete, upsells y horas extra.</li>
+    <li>Verificar que caja y barra sepan que se trata de evento privado.</li>
+</ul>
+<h2>Durante el evento</h2>
+<ul>
+    <li>Registrar consumos reales en la mesa de consumicion.</li>
+    <li>Registrar extras y horas adicionales en la mesa de servicio.</li>
+    <li>No cerrar mesas parciales sin avisar al responsable operativo.</li>
+</ul>
+<h2>Cierre</h2>
+<ol>
+    <li>Cerrar barra.</li>
+    <li>Revisar mesa de consumicion.</li>
+    <li>Revisar mesa de servicio.</li>
+    <li>Aplicar sena como cuenta corriente del cliente cuando corresponda.</li>
+    <li>Dejar totales listos para que administracion valide en Odoo.</li>
+</ol>
+<p>Fudo no reemplaza la cotizacion ni el contrato. Fudo refleja la ejecucion y el consumo operativo del evento.</p>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_odoo_close" model="document.page">
+        <field name="name">07 - Cierre administrativo en Odoo</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Cierre administrativo en Odoo</h1>
+<h2>Antes de finalizar</h2>
+<ul>
+    <li>Marcar saldo pagado cuando administracion confirma el cobro.</li>
+    <li>Completar invitados finales.</li>
+    <li>Revisar cotizacion y pedido privado vinculados al evento.</li>
+    <li>Registrar incidentes si hubo danos, reclamos, extras discutidos o excepciones.</li>
+    <li>Completar checklist critico: invitados finales, saldo, cierre de barra y cierre Fudo.</li>
+</ul>
+<h2>Finalizacion</h2>
+<p>El evento no debe pasar a Finalizado si queda checklist critico pendiente. Si se usa una excepcion manager, debe quedar motivo escrito.</p>
+<h2>Post-evento</h2>
+<ul>
+    <li>Registrar NPS cuando llegue la respuesta.</li>
+    <li>Confirmar pedido de resena Google.</li>
+    <li>Agregar aprendizajes para proximos eventos.</li>
+</ul>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_incidents_nps" model="document.page">
+        <field name="name">08 - Incidentes, danos, NPS y resenas</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance'),
+            ref('ponton_knowledge_l10n.group_ponton_security')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Incidentes, danos, NPS y resenas</h1>
+<h2>Que registrar como incidente</h2>
+<ul>
+    <li>Danos a mobiliario, vajilla, equipos, instalaciones o decoracion.</li>
+    <li>Problemas con proveedores externos.</li>
+    <li>Reclamos del cliente o invitados.</li>
+    <li>Extras no acordados o discutidos.</li>
+    <li>Situaciones de seguridad, admision o alcohol a menores.</li>
+</ul>
+<h2>Como documentar</h2>
+<ol>
+    <li>Crear incidente desde el evento privado o registrar en chatter si es menor.</li>
+    <li>Indicar hora aproximada, responsable que informa y accion tomada.</li>
+    <li>Adjuntar evidencia solo si corresponde y sin exponer datos sensibles innecesarios.</li>
+    <li>Definir si impacta facturacion, reposicion o aprendizaje interno.</li>
+</ol>
+<h2>Post-evento</h2>
+<ul>
+    <li>T+2: enviar encuesta NPS.</li>
+    <li>T+3: pedir resena Google si la experiencia fue positiva.</li>
+    <li>T+7: cerrar aprendizajes y pendientes administrativos.</li>
+</ul>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_roles" model="document.page">
+        <field name="name">09 - Roles y responsabilidades</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance'),
+            ref('ponton_knowledge_l10n.group_ponton_marketing'),
+            ref('ponton_knowledge_l10n.group_ponton_security')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Roles y responsabilidades</h1>
+<table class="table table-sm">
+    <thead><tr><th>Rol</th><th>Responsabilidad</th><th>Sistema principal</th></tr></thead>
+    <tbody>
+        <tr><td>Comercial</td><td>Responder lead, coordinar visita, cotizar y hacer seguimiento.</td><td>CRM y Cotizaciones Odoo</td></tr>
+        <tr><td>Administracion</td><td>Validar sena, saldo, contrato, facturacion y cierre administrativo.</td><td>Odoo</td></tr>
+        <tr><td>Responsable operativo</td><td>Coordinar checklist, proveedores, equipo, salon y cierre.</td><td>Odoo + Fudo</td></tr>
+        <tr><td>Barra / caja</td><td>Registrar consumos, extras, cierre de barra y medios de pago.</td><td>Fudo</td></tr>
+        <tr><td>Salon</td><td>Ejecutar recepcion, servicio, timing y comunicacion de novedades.</td><td>Checklist Odoo</td></tr>
+        <tr><td>Cocina</td><td>Preparar y despachar comida segun paquete o consumo.</td><td>Fudo + briefing operativo</td></tr>
+        <tr><td>Seguridad</td><td>Controlar admision, convivencia y situaciones de riesgo.</td><td>Incidentes Odoo</td></tr>
+    </tbody>
+</table>
+<p>Cuando una tarea no tiene responsable claro, el responsable operativo decide en el momento y lo deja asentado si afecta el cierre.</p>
+        ]]></field>
+    </record>
+
+    <record id="page_private_events_quick_checklist" model="document.page">
+        <field name="name">10 - Checklist rapido para encargados</field>
+        <field name="parent_id" ref="category_private_events"/>
+        <field name="draft_name">1.0</field>
+        <field name="draft_summary">Carga inicial eventos privados</field>
+        <field name="ponton_visibility_group_ids" eval="[(6, 0, [
+            ref('ponton_knowledge_l10n.group_ponton_admin'),
+            ref('ponton_knowledge_l10n.group_ponton_operations_manager'),
+            ref('ponton_knowledge_l10n.group_ponton_cashier'),
+            ref('ponton_knowledge_l10n.group_ponton_bar'),
+            ref('ponton_knowledge_l10n.group_ponton_salon'),
+            ref('ponton_knowledge_l10n.group_ponton_kitchen'),
+            ref('ponton_knowledge_l10n.group_ponton_maintenance'),
+            ref('ponton_knowledge_l10n.group_ponton_security')
+        ])]"/>
+        <field name="content"><![CDATA[
+<h1>Checklist rapido para encargados</h1>
+<h2>T-7</h2>
+<ul>
+    <li><strong>Critico:</strong> confirmar saldo pago o excepcion.</li>
+    <li>Briefing con Fabian y equipo.</li>
+    <li>Confirmar DJ, audio, deco y proveedores.</li>
+    <li>Pedido de bebida, comida, hielo y descartables.</li>
+</ul>
+<h2>T-2</h2>
+<ul>
+    <li><strong>Critico:</strong> confirmar invitados finales.</li>
+    <li>Validar catering, descorche y modalidad de salon.</li>
+    <li>Preparar carga del evento en Fudo.</li>
+</ul>
+<h2>Manana del evento</h2>
+<ul>
+    <li>Revisar termicas, iluminacion y climatizacion.</li>
+    <li>Mise en place de salon y barra.</li>
+    <li>Recepcion de proveedores.</li>
+</ul>
+<h2>Recepcion y durante</h2>
+<ul>
+    <li>Validar servicios contratados con cliente.</li>
+    <li>Controlar timing.</li>
+    <li>Registrar extras en Fudo.</li>
+    <li>Registrar incidentes si aparecen.</li>
+</ul>
+<h2>Cierre</h2>
+<ul>
+    <li><strong>Critico:</strong> cierre de barra.</li>
+    <li><strong>Critico:</strong> cierre Fudo de mesa consumicion y mesa servicio.</li>
+    <li>Aplicar sena como cuenta corriente cuando corresponda.</li>
+    <li>Revisar danos.</li>
+</ul>
+<h2>Post-evento</h2>
+<ul>
+    <li>T+2: encuesta NPS.</li>
+    <li>T+3: pedir resena Google.</li>
+    <li>T+7: cierre interno y aprendizajes.</li>
+</ul>
+        ]]></field>
+    </record>
+</odoo>
+

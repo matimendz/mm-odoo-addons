@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ponton_reconciliation_issue_list" model="ir.ui.view">
+        <field name="name">ponton.reconciliation.issue.list</field>
+        <field name="model">ponton.reconciliation.issue</field>
+        <field name="arch" type="xml">
+            <list string="Pendientes de conciliación" default_order="date desc,id desc">
+                <field name="state" widget="badge"/>
+                <field name="confidence" widget="badge"/>
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="amount" sum="Total"/>
+                <field name="issue_type"/>
+                <field name="probable_origin"/>
+                <field name="external_reference"/>
+                <field name="responsible_user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ponton_reconciliation_issue_form" model="ir.ui.view">
+        <field name="name">ponton.reconciliation.issue.form</field>
+        <field name="model">ponton.reconciliation.issue</field>
+        <field name="arch" type="xml">
+            <form string="Pendiente de conciliación">
+                <header>
+                    <button name="action_mark_review" type="object" string="Revisar" invisible="state not in ('new', 'suggested')"/>
+                    <button name="action_mark_suggested" type="object" string="Sugerir" invisible="state not in ('new', 'review')"/>
+                    <button name="action_approve" type="object" string="Aprobar" class="btn-primary" invisible="state not in ('review', 'suggested')"/>
+                    <button name="action_apply" type="object" string="Aplicar" class="btn-primary" invisible="state != 'approved'" groups="ponton_admin_reconciliation.group_ponton_reconciliation_manager"/>
+                    <button name="action_block" type="object" string="Bloquear" invisible="state in ('applied', 'discarded', 'blocked')"/>
+                    <button name="action_discard" type="object" string="Descartar" invisible="state in ('applied', 'discarded')"/>
+                    <button name="action_reset" type="object" string="Reabrir" invisible="state not in ('blocked', 'discarded')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,review,suggested,approved,applied"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Clasificación">
+                            <field name="active"/>
+                            <field name="issue_type"/>
+                            <field name="confidence"/>
+                            <field name="probable_origin"/>
+                            <field name="approved_action"/>
+                            <field name="responsible_user_id"/>
+                        </group>
+                        <group string="Importe">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="date"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount"/>
+                            <field name="journal_id"/>
+                            <field name="source_system"/>
+                            <field name="external_reference"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Evidencia">
+                            <group>
+                                <field name="bank_statement_line_id"/>
+                                <field name="payment_id"/>
+                                <field name="move_id"/>
+                                <field name="move_line_id"/>
+                                <field name="partner_id"/>
+                                <field name="rule_id"/>
+                                <field name="batch_id"/>
+                                <field name="unique_key" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Acción">
+                            <group>
+                                <field name="recommended_action"/>
+                                <field name="notes"/>
+                                <field name="applied_at"/>
+                                <field name="applied_by_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ponton_reconciliation_issue_search" model="ir.ui.view">
+        <field name="name">ponton.reconciliation.issue.search</field>
+        <field name="model">ponton.reconciliation.issue</field>
+        <field name="arch" type="xml">
+            <search string="Pendientes de conciliación">
+                <field name="name"/>
+                <field name="external_reference"/>
+                <field name="journal_id"/>
+                <field name="issue_type"/>
+                <field name="probable_origin"/>
+                <filter name="open" string="Abiertos" domain="[('state', 'not in', ('applied', 'discarded'))]"/>
+                <filter name="suggested" string="Sugeridos" domain="[('state', '=', 'suggested')]"/>
+                <filter name="approved" string="Aprobados" domain="[('state', '=', 'approved')]"/>
+                <filter name="blocked" string="Bloqueados" domain="[('state', '=', 'blocked')]"/>
+                <separator/>
+                <filter name="high_confidence" string="Alta confianza" domain="[('confidence', '=', 'high')]"/>
+                <filter name="medium_confidence" string="Media confianza" domain="[('confidence', '=', 'medium')]"/>
+                <group>
+                    <filter name="group_state" string="Estado" context="{'group_by': 'state'}"/>
+                    <filter name="group_type" string="Tipo" context="{'group_by': 'issue_type'}"/>
+                    <filter name="group_journal" string="Diario" context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_origin" string="Origen probable" context="{'group_by': 'probable_origin'}"/>
+                    <filter name="group_month" string="Mes" context="{'group_by': 'date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_ponton_reconciliation_issue_kanban" model="ir.ui.view">
+        <field name="name">ponton.reconciliation.issue.kanban</field>
+        <field name="model">ponton.reconciliation.issue</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <strong><field name="name"/></strong>
+                            <div><field name="date"/> · <field name="journal_id"/></div>
+                            <div><field name="amount"/></div>
+                            <div><field name="issue_type"/></div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_ponton_reconciliation_issue" model="ir.actions.act_window">
+        <field name="name">Pendientes de conciliación</field>
+        <field name="res_model">ponton.reconciliation.issue</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_ponton_reconciliation_issue_search"/>
+        <field name="context">{'search_default_open': 1}</field>
+    </record>
+
+</odoo>

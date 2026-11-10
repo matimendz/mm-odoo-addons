@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ponton_event_contract_clause_tree" model="ir.ui.view">
+        <field name="name">ponton.event.contract.clause.list</field>
+        <field name="model">ponton.event.contract.clause</field>
+        <field name="arch" type="xml">
+            <list string="Clausulas">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ponton_event_contract_clause_form" model="ir.ui.view">
+        <field name="name">ponton.event.contract.clause.form</field>
+        <field name="model">ponton.event.contract.clause</field>
+        <field name="arch" type="xml">
+            <form string="Clausula">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="event_type_ids" widget="many2many_tags"/>
+                            <field name="event_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <field name="body" nolabel="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ponton_event_contract_clause" model="ir.actions.act_window">
+        <field name="name">Clausulas de contrato</field>
+        <field name="res_model">ponton.event.contract.clause</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ponton_fudo_expense_analytic_rule_user,ponton.fudo.expense.analytic.rule user,model_ponton_fudo_expense_analytic_rule,base.group_user,1,0,0,0
+access_ponton_fudo_expense_analytic_rule_manager,ponton.fudo.expense.analytic.rule manager,model_ponton_fudo_expense_analytic_rule,account.group_account_manager,1,1,1,1

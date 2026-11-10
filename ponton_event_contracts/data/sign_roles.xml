@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sign_role_event_organizer" model="sign.oca.role">
+        <field name="name">Organizador</field>
+        <field name="domain">[]</field>
+        <field name="partner_selection_policy">empty</field>
+    </record>
+
+    <record id="sign_role_manso" model="sign.oca.role">
+        <field name="name">Manso</field>
+        <field name="domain">[]</field>
+        <field name="partner_selection_policy">default</field>
+        <field name="default_partner_id" ref="base.main_partner"/>
+    </record>
+</odoo>

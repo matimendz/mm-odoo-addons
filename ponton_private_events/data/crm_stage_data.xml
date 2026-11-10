@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="crm_stage_private_new" model="crm.stage">
+        <field name="name">Privados - Nuevo</field>
+        <field name="sequence">110</field>
+    </record>
+    <record id="crm_stage_private_contacted" model="crm.stage">
+        <field name="name">Privados - Contactado</field>
+        <field name="sequence">120</field>
+    </record>
+    <record id="crm_stage_private_visit_scheduled" model="crm.stage">
+        <field name="name">Privados - Visita agendada</field>
+        <field name="sequence">130</field>
+    </record>
+    <record id="crm_stage_private_visited" model="crm.stage">
+        <field name="name">Privados - Visito</field>
+        <field name="sequence">140</field>
+    </record>
+    <record id="crm_stage_private_quoted" model="crm.stage">
+        <field name="name">Privados - Cotizado</field>
+        <field name="sequence">150</field>
+    </record>
+    <record id="crm_stage_private_negotiation" model="crm.stage">
+        <field name="name">Privados - Negociacion</field>
+        <field name="sequence">160</field>
+    </record>
+</odoo>
